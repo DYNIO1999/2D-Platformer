@@ -16,7 +16,7 @@ namespace LightInDarkness{
 			auto& data = *((WindowProperties*)glfwGetWindowUserPointer(window));
 			data.width = width;
 			data.height = height;
-            App::s_eventDispatcher.DispatchAll(WindowResizeEvent(width,height)); 
+            App::s_eventDispatcher.DispatchAll(WindowResizeEvent(width,height));
         });
 
         glfwSetWindowCloseCallback(m_window, [](GLFWwindow *window)

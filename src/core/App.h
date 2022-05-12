@@ -11,13 +11,24 @@ namespace LightInDarkness{
 class App
 {
 public:
-    App();
-    ~App();
     void Run();
 
+    App(App const &) = delete;
+    void operator=(App const &) = delete;
+
+    static App &Get()
+    {
+        static App instance;
+                           
+        return instance;
+    }
+    
     static float GetDeltaTime(){return s_deltaTime;}
     static EventDispatcher s_eventDispatcher;
+    Window& GetWindow() const {return *m_Window;};
 private:
+    App();
+    ~App();
     void OnWindowClose(const Event &);
     void OnWindowResize(const Event &);
     
@@ -31,6 +42,7 @@ private:
 
     WindowProperties m_windowProps;
     std::shared_ptr<Window> m_Window;
+
 };
 }
 #endif

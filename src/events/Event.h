@@ -5,12 +5,12 @@ namespace LightInDarkness{
     using EventID = size_t;
     
     
-    static inline EventID CreateEventID(){
+    inline EventID CreateEventID(){
         static EventID typeID =0u;
         return typeID++;
     }
     template<typename T>
-    static inline  EventID EventTypeID(){
+    inline  EventID EventTypeID(){
         static const EventID typeID = CreateEventID();
         return typeID;
     }

@@ -1,5 +1,5 @@
 #include "App.h"
-
+#include "input/Input.h"
 
 
 namespace LightInDarkness{
@@ -16,8 +16,8 @@ namespace LightInDarkness{
     void App::Initialize(){
         m_isRunning = true;
         m_Window = std::make_shared<Window>(m_windowProps);
-        s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
+        s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
     }
     void App::Run(){
         Initialize();
@@ -34,7 +34,8 @@ namespace LightInDarkness{
     
     }
     void App::OnEvent(){
-        
+        auto [x,y] = Input::GetMousePosition();
+        std::cout<<x<<" "<<y<<'\n';
     }
     void App::OnUpdate(){
 
