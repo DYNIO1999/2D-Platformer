@@ -43,8 +43,8 @@ public:
     }
     GLFWwindow *GetGLFWWindow() const { return m_window;};
 
+    void Update();
 private:
-
     void Initialize();
     void Shutdown();
     GLFWwindow* m_window;

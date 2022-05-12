@@ -10,14 +10,27 @@ namespace LightInDarkness{
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         glfwSwapInterval(1); //VSync
         glfwSetWindowUserPointer(m_window,&m_windowData);
+
+        glfwSetWindowSizeCallback(m_window, [](GLFWwindow *window, int width, int height)
+                                  {
+			auto& data = *((WindowProperties*)glfwGetWindowUserPointer(window));
+			data.width = width;
+			data.height = height;
+            App::s_eventDispatcher.DispatchAll(WindowResizeEvent(width,height)); 
+        });
+
         glfwSetWindowCloseCallback(m_window, [](GLFWwindow *window)
-                                   {
+        {
 			glfwGetWindowUserPointer(window);
             App::s_eventDispatcher.DispatchAll(WindowCloseEvent());
-            });
+        });
     }
     void Window::Shutdown()
     {
 
+    }
+    void Window::Update(){
+        glfwPollEvents();
+        glfwSwapBuffers(m_window);
     }
 }

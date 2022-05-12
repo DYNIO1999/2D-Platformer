@@ -16,17 +16,16 @@ namespace LightInDarkness{
     void App::Initialize(){
         m_isRunning = true;
         m_Window = std::make_shared<Window>(m_windowProps);
-        s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
-        s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
-        s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
+        s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
     }
     void App::Run(){
         Initialize();
         while (m_isRunning)
         {
-            glfwPollEvents();
+            OnEvent();
             OnUpdate();
+            m_Window->Update();
         }
         Shutdown();
          
@@ -40,8 +39,12 @@ namespace LightInDarkness{
     void App::OnUpdate(){
 
     }
-    void App::OnWindowClose(const Event &){
-        std::cout<<"HERHHEHEHEH"<<'\n';
+    void App::OnWindowClose(const Event&){
         m_isRunning =false;
+    }
+    void App::OnWindowResize(const Event &e){
+        auto event = s_eventDispatcher.Cast<WindowResizeEvent>(e);
+        glViewport(0.0,0.0,event.m_width, event.m_height);
+        std::cout<<"Viewport resized!"<<'\n';
     }
 }

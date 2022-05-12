@@ -19,6 +19,8 @@ public:
     static EventDispatcher s_eventDispatcher;
 private:
     void OnWindowClose(const Event &);
+    void OnWindowResize(const Event &);
+    
     void OnEvent();
     void OnUpdate();
     
