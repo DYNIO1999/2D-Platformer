@@ -1,0 +1,7 @@
+#ifndef _SRC_EVENTS_MOUSE_EVENTS_H_
+#define _SRC_EVENTS_MOUSE_EVENTS_H_
+
+
+
+
+#endif
