@@ -1,45 +1,66 @@
 #ifndef _SRC_EVENTS_EVENT_DISPATCHER_H_
 #define _SRC_EVENTS_EVENT_DISPATCHER_H_
+
 #include <functional>
 #include <map>
-#include <vector>
 
 #include "Event.h"
-
-
-namespace LightInDarkness{
-template<typename T>
-class EventDispatcher
+namespace LightInDarkness
 {
-public:
-    using EventFunCallback = std::function<bool(const Event<T>&)>;
-    EventDispatcher() = default;
-    void Subscribe(T type, const EventFunCallback& functionCallback){
-        m_observers[type].push_back(functionCallback);
-    }
-    void DispatchAll(Event<T>& event){
-        if (m_observers.find(event.GetEventType()) == m_observers.end())
-            return;
-        for (auto &observer : m_observers.at(event.GetEventType()))
+    class EventDispatcher
+    {
+    public:
+        using EventCallback = std::function<void(const Event &)>;
+        EventDispatcher()= default;
+        EventDispatcher& operator =(const EventDispatcher &) = delete;
+        EventDispatcher(const EventDispatcher &) = delete;
+        
+        ~EventDispatcher() = default;
+
+        template <typename T>
+        void Subscribe(EventCallback &&callback)
         {
-            if (!event.isHandled())
-                observer(event);
+            m_callbacks[EventTypeID<T>()].push_back(callback);
         }
-    }
-    bool Dispatch(Event<T>& event){
-        if (m_observers.find(event.GetEventType()) == m_observers.end())
-            return false;
-        for (auto &observer : m_observers.at(event.GetEventType()))
+        
+        template <typename T>
+        const T& Cast(const Event &e)
         {
-            if (!event.isHandled()){
-                observer(event);
-                return true;
+            return static_cast<const T&>(e);
+        }
+
+        template <typename T>
+        void DispatchFirst(const T &e) const
+        {
+            const EventID eventID = EventTypeID<T>();
+            if (m_callbacks.find(eventID) == m_callbacks.end())
+            {
+                return;
             }
-        } 
-        return false;  
-    }
-private:
-    std::map<T, std::vector<EventFunCallback>> m_observers;
-};
+            for (auto &&callback : m_callbacks.at(eventID))
+            {
+                callback(e);
+                return;
+            }
+        }
+        template <typename T>
+        void DispatchAll(const T &e) const
+        {
+            const EventID eventID = EventTypeID<T>();
+            std::cout << eventID << '\n';
+            if (m_callbacks.find(eventID) == m_callbacks.end())
+            {
+                return;
+            }
+            for (auto &&callback : m_callbacks.at(eventID))
+            {
+                
+                callback(e);
+            }
+        }
+
+    private:
+        std::map<EventID, std::vector<EventCallback>> m_callbacks;
+    };
 }
 #endif

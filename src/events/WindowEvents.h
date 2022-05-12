@@ -4,27 +4,33 @@
 #include "Event.h"
 namespace LightInDarkness
 {
-    enum class WindowEvents
-    {
-        WindowClose,
-        WindowResize
-    };
-    class WindowCloseEvent : public Event<WindowEvents>
-    {
+    class WindowCloseEvent :public Event
+    {   
     public:
-        WindowCloseEvent() : Event<WindowEvents>(WindowEvents::WindowClose){};
-        virtual ~WindowCloseEvent(){
-            
-        };
-    };
-
-    class WindowResizeEvent : public Event<WindowEvents>
-    {
-    public:
-        WindowResizeEvent() : Event<WindowEvents>(WindowEvents::WindowResize){};
-        virtual ~WindowResizeEvent(){
+        WindowCloseEvent(){
 
         }
+        ~WindowCloseEvent(){
+
+        }
+        EventID GetEventType() const override { return EventTypeID<WindowCloseEvent>(); }
+
+    private:
     };
+
+    class WindowResizeEvent : public Event
+    {
+    public:
+        WindowResizeEvent(){
+
+        }
+        ~WindowResizeEvent(){
+
+        }
+        EventID GetEventType() const override { return EventTypeID<WindowResizeEvent>(); }
+
+    private:    
+    };
+    
 }
 #endif
