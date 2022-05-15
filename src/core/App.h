@@ -6,6 +6,9 @@
 
 #include "Window.h"
 #include "events/EventDispatcher.h"
+
+
+
 namespace LightInDarkness{
 #define BIND_EVENT_FUNCTION(x) std::bind(&x, this, std::placeholders::_1)
 class App

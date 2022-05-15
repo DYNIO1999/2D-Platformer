@@ -32,7 +32,6 @@ namespace LightInDarkness
     std::pair<float, float> Input::GetMousePosition()
     {
         auto &window = App::Get().GetWindow();
-
         double x, y;
         glfwGetCursorPos(window.GetGLFWWindow(), &x, &y);
         return {(float)x, (float)y};
