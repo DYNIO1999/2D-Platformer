@@ -47,7 +47,6 @@ namespace LightInDarkness
         void DispatchAll(const T &e) const
         {
             const EventID eventID = EventTypeID<T>();
-            std::cout << eventID << '\n';
             if (m_callbacks.find(eventID) == m_callbacks.end())
             {
                 return;

@@ -18,22 +18,22 @@ namespace LightInDarkness
 
             return instance;
         }
-        void PushScene(std::unique_ptr<Scene> scene)
+        void PushScene(std::unique_ptr<Scene>&& scene)
         {
             scene->OnInit();
-            m_scenes.emplace_back(scene);
+            m_scenes.emplace_back(std::move(scene));
         }
         void PopScene()
         {
             m_scenes.back()->OnShutdown();
             m_scenes.pop_back();
         }
-        void ChangeScene(std::unique_ptr<Scene> scene)
+        void ChangeScene(std::unique_ptr<Scene>&& scene)
         {
             m_scenes.back()->OnShutdown();
             m_scenes.pop_back();
             scene->OnInit();
-            m_scenes.emplace_back(scene);
+            m_scenes.emplace_back(std::move(scene));
         }
         auto begin() { return m_scenes.begin(); }
         auto end() { return m_scenes.end(); }

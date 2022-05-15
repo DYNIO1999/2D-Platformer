@@ -5,6 +5,8 @@
 namespace LightInDarkness{
 
     EventDispatcher App::s_eventDispatcher;
+    float App::s_deltaTime =0.0f;
+
     App::App()
     {
 
@@ -14,18 +16,32 @@ namespace LightInDarkness{
 
     }
     void App::Initialize(){
+
+        m_lastFrameTime = 0.0f;
+
         m_isRunning = true;
         m_Window = std::make_shared<Window>(m_windowProps);
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
         s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
+
+
+        //Scenes
     }
     void App::Run(){
         Initialize();
         while (m_isRunning)
         {
-            OnEvent();
-            OnUpdate();
+            for (const auto &i : SceneManager::Get())
+            {
+                i->OnEvent();
+                i->OnUpdate(App::GetDeltaTime());
+            }
             m_Window->Update();
+
+            float currentTime  = glfwGetTime();
+            s_deltaTime = currentTime - m_lastFrameTime;
+            std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
+            m_lastFrameTime = currentTime;
         }
         Shutdown();
          
@@ -33,19 +49,11 @@ namespace LightInDarkness{
     void App::Shutdown(){
     
     }
-    void App::OnEvent(){
-        auto [x,y] = Input::GetMousePosition();
-        std::cout<<x<<" "<<y<<'\n';
-    }
-    void App::OnUpdate(){
-
-    }
     void App::OnWindowClose(const Event&){
         m_isRunning =false;
     }
     void App::OnWindowResize(const Event &e){
         auto event = s_eventDispatcher.Cast<WindowResizeEvent>(e);
         glViewport(0.0,0.0,event.m_width, event.m_height);
-        std::cout<<"Viewport resized!"<<'\n';
     }
 }

@@ -6,6 +6,8 @@
 
 #include "Window.h"
 #include "events/EventDispatcher.h"
+#include "SceneManager.h"
+
 
 
 
@@ -35,13 +37,12 @@ private:
     void OnWindowClose(const Event &);
     void OnWindowResize(const Event &);
     
-    void OnEvent();
-    void OnUpdate();
     
     void Initialize();
     void Shutdown();
     bool m_isRunning;
     static float s_deltaTime;
+    float m_lastFrameTime;
 
     WindowProperties m_windowProps;
     std::shared_ptr<Window> m_Window;
