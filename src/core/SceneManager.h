@@ -18,7 +18,7 @@ namespace LightInDarkness
 
             return instance;
         }
-        void PushScene(std::unique_ptr<Scene>&& scene)
+        void PushScene(std::shared_ptr<Scene> &&scene)
         {
             scene->OnInit();
             m_scenes.emplace_back(std::move(scene));
@@ -28,7 +28,7 @@ namespace LightInDarkness
             m_scenes.back()->OnShutdown();
             m_scenes.pop_back();
         }
-        void ChangeScene(std::unique_ptr<Scene>&& scene)
+        void ChangeScene(std::shared_ptr<Scene> &&scene)
         {
             m_scenes.back()->OnShutdown();
             m_scenes.pop_back();
@@ -37,9 +37,16 @@ namespace LightInDarkness
         }
         auto begin() { return m_scenes.begin(); }
         auto end() { return m_scenes.end(); }
+        auto Current() const{
+            return m_scenes.back();
+        }
 
+        auto IsEmpty() const
+        {
+            return m_scenes.empty();
+        }
     private:
-        std::vector<std::unique_ptr<Scene>> m_scenes;
+        std::vector<std::shared_ptr<Scene>> m_scenes;
 
         ~SceneManager()
         {

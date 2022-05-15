@@ -31,13 +31,11 @@ namespace LightInDarkness{
         Initialize();
         while (m_isRunning)
         {
-            for (const auto &i : SceneManager::Get())
-            {
-                i->OnEvent();
-                i->OnUpdate(App::GetDeltaTime());
+            if(!SceneManager::Get().IsEmpty()){
+            SceneManager::Get().Current()->OnEvent();
+            SceneManager::Get().Current()->OnUpdate(App::GetDeltaTime());
             }
             m_Window->Update();
-
             float currentTime  = glfwGetTime();
             s_deltaTime = currentTime - m_lastFrameTime;
             std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
