@@ -24,6 +24,10 @@ namespace LightInDarkness{
 			glfwGetWindowUserPointer(window);
             App::s_eventDispatcher.DispatchAll(WindowCloseEvent());
         });
+
+        SetVSync(true);
+
+        
     }
     void Window::Shutdown()
     {
@@ -33,4 +37,14 @@ namespace LightInDarkness{
         glfwPollEvents();
         glfwSwapBuffers(m_window);
     }
+
+    void Window::SetVSync(bool set){
+        if(set){
+            glfwSwapInterval(1);
+        }else{
+            glfwSwapInterval(0);
+        }
+        m_vSync =set;
+    }
+
 }

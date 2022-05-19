@@ -5,7 +5,9 @@ namespace LightInDarkness{
 class Scene
 {    
 public:
-    virtual ~Scene();
+    virtual ~Scene(){
+        
+    }
     virtual void OnInit() =0;
     virtual void OnEvent() =0;
     virtual void OnUpdate(float dt) =0;

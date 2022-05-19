@@ -44,9 +44,12 @@ public:
     GLFWwindow *GetGLFWWindow() const { return m_window;};
 
     void Update();
+    void SetVSync(bool set);
+    bool IsVSync()const{return m_vSync;}
 private:
     void Initialize();
     void Shutdown();
+    bool m_vSync;
     GLFWwindow* m_window;
     WindowProperties m_windowData;
 };

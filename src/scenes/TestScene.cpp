@@ -16,6 +16,8 @@ namespace LightInDarkness
 
     }
     void TestScene::OnUpdate(float dt){
+
+        std::cout<<dt<<'\n';
         std::cout<<"FROM TEST SCENE"<<"\n";
     }
     void TestScene::OnShutdown(){
