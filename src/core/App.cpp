@@ -1,6 +1,6 @@
 #include "App.h"
 #include "input/Input.h"
-
+#include "scenes/TestScene.h"
 
 namespace LightInDarkness{
 
@@ -24,7 +24,7 @@ namespace LightInDarkness{
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
         s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
 
-
+        SceneManager::Get().PushScene(std::make_shared<TestScene>());
         //Scenes
     }
     void App::Run(){

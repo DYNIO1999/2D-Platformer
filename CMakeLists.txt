@@ -19,7 +19,7 @@ SET (CMAKE_C_COMPILER /usr/bin/clang)
 SET (CMAKE_CXX_COMPILER /usr/bin/clang++)
 
 add_compile_options(-fdiagnostics-color=always)
-add_compile_options(-Wall -Wextra -Werror)
+add_compile_options(-Wall -Wextra)
 
 include_directories (src/
                      vendor/glad/include/

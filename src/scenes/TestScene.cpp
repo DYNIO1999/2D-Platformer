@@ -10,18 +10,54 @@ namespace LightInDarkness
     }
 
     void TestScene::OnInit(){
+        Renderer::Initialize();
+        GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+        glCompileShader(vertexShader);
+        GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+        glCompileShader(fragmentShader);
 
+        shaderProgram = glCreateProgram();
+        glAttachShader(shaderProgram, vertexShader);
+        glAttachShader(shaderProgram, fragmentShader);
+        glLinkProgram(shaderProgram);
+
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+
+        glCreateVertexArrays(1, &VAO);
+        glCreateBuffers(1, &IBO);
+        glCreateBuffers(1, &VBO);
+
+
+        std::cout<<sizeof(vertices)<<'\n';
+
+        glNamedBufferStorage(VBO, sizeof(vertices), vertices, GL_DYNAMIC_STORAGE_BIT);
+        glNamedBufferStorage(IBO, sizeof(indices), indices, GL_DYNAMIC_STORAGE_BIT);
+
+         glEnableVertexArrayAttrib(VAO, 0);
+        glVertexArrayAttribBinding(VAO, 0, 0);
+        glVertexArrayAttribFormat(VAO, 0, 3, GL_FLOAT, GL_FALSE, 0);
+
+        glVertexArrayVertexBuffer(VAO, 0, VBO, 0, 3 * sizeof(float));
+        glVertexArrayElementBuffer(VAO, IBO);
     }
     void TestScene::OnEvent(){
 
     }
     void TestScene::OnUpdate(float dt){
 
-        std::cout<<dt<<'\n';
-        std::cout<<"FROM TEST SCENE"<<"\n";
+
+
+        Renderer::Clear(glm::vec4(0.831, 0.047, 0.047, 1.0f));
+
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
     }
     void TestScene::OnShutdown(){
-
+        Renderer::Shutdown();
     }
 } 
 
