@@ -2,6 +2,7 @@
 #define _SRC_RENDERER_VERTEX_ARRAY_H_
 
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 namespace LightInDarkness{
 class VertexArray
@@ -22,11 +23,10 @@ public:
         glVertexArrayAttribBinding(m_vertexArrayID, 0, 0);
         glVertexArrayVertexBuffer(m_vertexArrayID, 0, _buffer.GetID(), 0, 3 * sizeof(float));
     }
-
     template <>
     void AddBuffer<IndexBuffer>(const IndexBuffer &_buffer)
     {
-        
+        glVertexArrayElementBuffer(m_vertexArrayID, _buffer.GetID());
     }
 
     void Bind();

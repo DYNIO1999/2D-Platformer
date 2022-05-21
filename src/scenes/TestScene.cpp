@@ -26,17 +26,12 @@ namespace LightInDarkness
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
 
-        glCreateBuffers(1, &IBO);
 
         VertexBuffer testBuffer{vertices,sizeof(vertices)};
-
-
-        glNamedBufferStorage(IBO, sizeof(indices), indices, GL_DYNAMIC_STORAGE_BIT);
+        IndexBuffer testIndexBuffer{indices, sizeof(indices)};
 
         vertexArrayObj.AddBuffer<VertexBuffer>(testBuffer);
-
-        glVertexArrayElementBuffer(vertexArrayObj.GetID(), IBO);
-
+        vertexArrayObj.AddBuffer<IndexBuffer>(testIndexBuffer);
     }
     void TestScene::OnEvent(){
 
