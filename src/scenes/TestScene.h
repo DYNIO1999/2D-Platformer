@@ -33,6 +33,7 @@ namespace LightInDarkness
         uint VAO;
 
         GLuint shaderProgram;
+        VertexArray vertexArrayObj;        
 
         const char *vertexShaderSource = R"(#version 460 core
 layout (location = 0) in vec3 pos;

@@ -3,8 +3,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-
-#include "VertexBuffer.h"
+#include "VertexArray.h"
 
 namespace LightInDarkness{
 
