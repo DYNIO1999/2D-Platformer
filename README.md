@@ -7,6 +7,7 @@ Platformer 2D in OpenGL simple project
 - Implement 2D Renderer
     - Abstraction:
         - OpenGL buffers
+            -Think how to calculate stride and stuff with DSA OpenGL
         - Shaders 
     - Architecture
     - Minimize the number of drawing calls

@@ -44,6 +44,8 @@ namespace LightInDarkness
 
         glUseProgram(shaderProgram);
         vertexArrayObj.Bind();
+
+        //glDrawArrays(GL_TRIANGLES,0,4);
         glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
     }
     void TestScene::OnShutdown(){

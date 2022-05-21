@@ -2,7 +2,8 @@
 
 namespace LightInDarkness
 {
-    VertexArray::VertexArray(){
+    VertexArray::VertexArray():m_attribCounter(0)
+    {
         glCreateVertexArrays(1, &m_vertexArrayID);
     }
     VertexArray::~VertexArray(){
