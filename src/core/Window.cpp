@@ -10,6 +10,10 @@ namespace LightInDarkness{
         int check = glfwInit();
         assert(check != 0 && "Could not intialize GLFW!");
 
+        
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         m_window = glfwCreateWindow(m_windowData.width, m_windowData.height, m_windowData.title.c_str(), nullptr,nullptr);
         glfwMakeContextCurrent(m_window);

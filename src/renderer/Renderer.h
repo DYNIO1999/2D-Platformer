@@ -1,12 +1,10 @@
 #ifndef _SRC_RENDERER_RENDERER_H_
 #define _SRC_RENDERER_RENDERER_H_
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
-
 #include <glm/glm.hpp>
-
-
 #include <iostream>
+
+
+#include "VertexBuffer.h"
 
 namespace LightInDarkness{
 

@@ -28,20 +28,21 @@ namespace LightInDarkness
 
         glCreateVertexArrays(1, &VAO);
         glCreateBuffers(1, &IBO);
-        glCreateBuffers(1, &VBO);
+
+        VertexBuffer testBuffer{vertices,sizeof(vertices)};
 
 
-        std::cout<<sizeof(vertices)<<'\n';
-
-        glNamedBufferStorage(VBO, sizeof(vertices), vertices, GL_DYNAMIC_STORAGE_BIT);
         glNamedBufferStorage(IBO, sizeof(indices), indices, GL_DYNAMIC_STORAGE_BIT);
 
-         glEnableVertexArrayAttrib(VAO, 0);
-        glVertexArrayAttribBinding(VAO, 0, 0);
+        glVertexArrayElementBuffer(VAO, IBO);
+
+        glEnableVertexArrayAttrib(VAO, 0);
+
         glVertexArrayAttribFormat(VAO, 0, 3, GL_FLOAT, GL_FALSE, 0);
 
-        glVertexArrayVertexBuffer(VAO, 0, VBO, 0, 3 * sizeof(float));
-        glVertexArrayElementBuffer(VAO, IBO);
+        glVertexArrayAttribBinding(VAO, 0, 0);
+        
+        glVertexArrayVertexBuffer(VAO, 0, testBuffer.GetID(), 0, 3*sizeof(float));
     }
     void TestScene::OnEvent(){
 
