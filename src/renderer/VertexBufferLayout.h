@@ -45,9 +45,23 @@ public:
     {
         m_elements.push_back({GL_FLOAT, _count, GL_FALSE});
         m_stride += _count * VertexBufferElement::GetSizeType(GL_FLOAT);
+        
     }
 
     unsigned int GetStride() const { return m_stride;}
+    unsigned int GetSize() const 
+    { 
+        unsigned int size{0};
+        for (const auto &item : m_elements)
+        {
+            size+=item.count;
+        }
+        return size;
+    }
+    std::vector<VertexBufferElement>& GetElements(){return m_elements;};
+
+    std::vector<VertexBufferElement>::iterator begin() { return m_elements.begin(); }
+    std::vector<VertexBufferElement>::iterator end() { return m_elements.end(); }
 
 private:
     std::vector<VertexBufferElement> m_elements;

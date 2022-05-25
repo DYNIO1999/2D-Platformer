@@ -38,7 +38,7 @@ namespace LightInDarkness{
             m_Window->Update();
             float currentTime  = glfwGetTime();
             s_deltaTime = currentTime - m_lastFrameTime;
-            std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
+            //std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
             m_lastFrameTime = currentTime;
         }
         Shutdown();

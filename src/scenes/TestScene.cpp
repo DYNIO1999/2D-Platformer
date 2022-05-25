@@ -29,8 +29,12 @@ namespace LightInDarkness
 
         VertexBuffer testBuffer{vertices,sizeof(vertices)};
         IndexBuffer testIndexBuffer{indices, sizeof(indices)};
+        VertexBufferLayout testLayout;
+        testLayout.Push<float>(3);
+        testLayout.Push<float>(2);
 
-        vertexArrayObj.AddBuffer<VertexBuffer>(testBuffer);
+
+        vertexArrayObj.AddBuffer<VertexBuffer, VertexBufferLayout>(testBuffer, testLayout);
         vertexArrayObj.AddBuffer<IndexBuffer>(testIndexBuffer);
     }
     void TestScene::OnEvent(){
@@ -44,7 +48,7 @@ namespace LightInDarkness
 
         glUseProgram(shaderProgram);
         vertexArrayObj.Bind();
-
+        
         //glDrawArrays(GL_TRIANGLES,0,4);
         glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
     }

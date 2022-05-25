@@ -6,6 +6,7 @@
 #include "renderer/Renderer.h"
 
 
+
 namespace LightInDarkness
 {
     class TestScene : public Scene
@@ -19,11 +20,12 @@ namespace LightInDarkness
         void OnUpdate(float dt) override;
         void OnShutdown() override;
 
-        float vertices[12] = {
-            -1.0f, -1.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f};
+        float vertices[20] = {
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            1.0f, -1.0f, 0.0f, 0.0f, 0.0f
+            };
         uint indices[6] = {
             0, 1, 2,
             2, 3, 0};
