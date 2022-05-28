@@ -6,7 +6,7 @@ Platformer 2D in OpenGL simple project
 # TO DO:
 - Implement 2D Renderer
     - Abstraction:
-        - OpenGL buffers -[x]
+        - OpenGL buffers -[DONE]
             
         - Shaders 
             - SetUniforms
