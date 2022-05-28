@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "VertexArray.h"
-
+#include "Shader.h"
 namespace LightInDarkness{
 
     static void openglErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar const *message, void const *user_param)
