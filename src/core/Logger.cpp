@@ -8,7 +8,7 @@ namespace LightInDarkness
         auto consoleSink = std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>();
         consoleSink->set_pattern("%^[%T] %n: %v%$");
         std::vector<spdlog::sink_ptr> sinks{consoleSink};
-        s_logger = std::make_shared<spdlog::logger>("APP", sinks.begin(), sinks.end());
+        s_logger = std::make_shared<spdlog::logger>("LightInDarkness", sinks.begin(), sinks.end());
         s_logger->set_level(spdlog::level::trace);
     }
 }

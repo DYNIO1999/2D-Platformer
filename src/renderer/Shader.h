@@ -9,10 +9,11 @@
 #include <sstream>
 #include <cstring>
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
+
+#include "core/Assert.h"
 
 namespace LightInDarkness
 {
@@ -48,11 +49,13 @@ namespace LightInDarkness
         void SetVec4(const std::string &_name, const glm::vec4 &_value);
         void SetVec3(const std::string &_name, const glm::vec3 &_value);
         void SetVec2(const std::string &_name, const glm::vec2 &_value);
-
+        uint GetID(){return m_shaderID;};
     private:
         bool ProgramIsValid(){
 
         } 
+        void CompileShaders();
+
 
         bool m_isComputeShader;
         ShaderType CheckShaderType(const std::string& _type);
