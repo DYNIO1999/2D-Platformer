@@ -43,6 +43,10 @@ public:
     }
     GLFWwindow *GetGLFWWindow() const { return m_window;};
 
+    auto GetWindowSize() {
+        return std::pair<int, int>(m_windowData.width, m_windowData.height);
+    }
+
     void Update();
     void SetVSync(bool set);
     bool IsVSync()const{return m_vSync;}

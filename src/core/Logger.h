@@ -26,5 +26,4 @@ namespace LightInDarkness
 #define APP_INFO(...) LightInDarkness::Logger::GetLogger()->info(__VA_ARGS__)
 #define APP_WARN(...) LightInDarkness::Logger::GetLogger()->warn(__VA_ARGS__)
 #define APP_ERROR(...) LightInDarkness::Logger::GetLogger()->error(__VA_ARGS__)
-#define APP_FATAL(...) LightInDarkness::Logger::GetLogger()->critical(__VA_ARGS__)
 #endif
