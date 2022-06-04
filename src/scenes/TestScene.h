@@ -36,6 +36,10 @@ namespace LightInDarkness
 
         GLuint shaderProgram;
         VertexArray vertexArrayObj;        
+        std::shared_ptr<Shader> testShader;
+        
+
+
 
         const char *vertexShaderSource = R"(#version 460 core
 layout (location = 0) in vec3 pos;

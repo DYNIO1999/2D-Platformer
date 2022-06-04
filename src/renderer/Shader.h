@@ -1,14 +1,30 @@
 #ifndef _SRC_RENDERER_SHADER_H_
-#define _SRC_RENDERER_SHADER_H
+#define _SRC_RENDERER_SHADER_H_
 #include <unordered_map>
 #include <string>
+#include <memory>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <cstring>
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
+
 namespace LightInDarkness
 {
+    enum class ShaderType :GLenum{
+        NoneShader  = GL_NONE,
+        VertexShader = GL_VERTEX_SHADER,
+        FragmentShader = GL_FRAGMENT_SHADER,
+        GeometryShader = GL_GEOMETRY_SHADER,
+        TessellationControlShader = GL_TESS_CONTROL_SHADER,
+        TessellationEvaluationShader= GL_TESS_EVALUATION_SHADER,
+        ComputeShader = GL_COMPUTE_SHADER,
+    };
     //ONE FILE SHADER ?
     class Shader
     {
@@ -18,10 +34,10 @@ namespace LightInDarkness
         Shader(const std::string& _path);
         
         ~Shader();
-        
-        void CreateFromString(const std::string& _source);
-        
+        static std::shared_ptr<Shader> Create(const std::string &_path);
+
         void Bind();
+
         
 
         //UNIFORMS;
@@ -34,6 +50,15 @@ namespace LightInDarkness
         void SetVec2(const std::string &_name, const glm::vec2 &_value);
 
     private:
+        bool ProgramIsValid(){
+
+        } 
+
+        bool m_isComputeShader;
+        ShaderType CheckShaderType(const std::string& _type);
+        std::unordered_map<ShaderType, std::string> m_shaders;
+        void ParseShader(const std::string &_source);
+        std::string ReadShader();
         std::string m_shaderPath;
         unsigned int m_shaderID;
         void GetAllShaderUniforms();
