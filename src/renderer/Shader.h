@@ -9,9 +9,10 @@
 #include <sstream>
 #include <cstring>
 
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-
+#include <glm/ext.hpp>
 
 #include "core/Assert.h"
 
@@ -51,21 +52,19 @@ namespace LightInDarkness
         void SetVec2(const std::string &_name, const glm::vec2 &_value);
         uint GetID(){return m_shaderID;};
     private:
-        bool ProgramIsValid(){
-
-        } 
-        void CompileShaders();
-
-
-        bool m_isComputeShader;
-        ShaderType CheckShaderType(const std::string& _type);
-        std::unordered_map<ShaderType, std::string> m_shaders;
         void ParseShader(const std::string &_source);
-        std::string ReadShader();
-        std::string m_shaderPath;
-        unsigned int m_shaderID;
+        void CompileShaders();
         void GetAllShaderUniforms();
-        std::unordered_map<std::string,int> m_uniformLocations; //? Not sure if that will work need to figure it out!
+        std::string ReadShader();
+        ShaderType CheckShaderType(const std::string& _type);
+        int GetUniformLocation(const std::string &_name);
+
+        std::unordered_map<ShaderType, std::string> m_shaders;
+        std::unordered_map<std::string,int> m_uniformLocations;
+        
+        std::string m_shaderPath;
+        bool m_isComputeShader;
+        unsigned int m_shaderID;
     };    
 } 
 
