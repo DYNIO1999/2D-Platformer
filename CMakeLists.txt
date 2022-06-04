@@ -25,6 +25,7 @@ include_directories (src/
                      vendor/glad/include/
                      vendor/glfw/include/
                      vendor/glm/include/glm
+                     vendor/spdlog/include
                      )
 file (GLOB         GLAD_SOURCES vendor/glad/src/glad.c)
 file (GLOB_RECURSE PROJECT_HEADERS src/*.hpp

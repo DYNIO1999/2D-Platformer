@@ -24,6 +24,11 @@ namespace LightInDarkness{
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
         s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
 
+        //Logger
+        Logger::Init();
+        //Logger
+
+        //Scenes
         SceneManager::Get().PushScene(std::make_shared<TestScene>());
         //Scenes
     }

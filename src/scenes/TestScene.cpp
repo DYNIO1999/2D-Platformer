@@ -36,6 +36,9 @@ namespace LightInDarkness
 
         vertexArrayObj.AddBuffer<VertexBuffer, VertexBufferLayout>(testBuffer, testLayout);
         vertexArrayObj.AddBuffer<IndexBuffer>(testIndexBuffer);
+
+       testShader = Shader::Create("../../resources/shaders/BaseShader.glsl");
+
     }
     void TestScene::OnEvent(){
 
