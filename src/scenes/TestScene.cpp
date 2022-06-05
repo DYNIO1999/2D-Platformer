@@ -31,14 +31,16 @@ namespace LightInDarkness
 
     }
     void TestScene::OnEvent(){
-
+            m_camera.OnEvent();
     }
     void TestScene::OnUpdate(float dt){
+
+        m_camera.OnUpdate(dt);
 
         Renderer::Clear(glm::vec4(0.831, 0.047, 0.047, 1.0f));
 
         vertexArrayObj.Bind();
-    
+
         glm::mat4 modelMatrix(1.0f);
         
         //glDrawArrays(GL_TRIANGLES,0,4);
