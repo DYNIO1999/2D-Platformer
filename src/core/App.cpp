@@ -57,6 +57,7 @@ namespace LightInDarkness{
     }
     void App::OnWindowResize(const Event &e){
         auto event = s_eventDispatcher.Cast<WindowResizeEvent>(e);
+        APP_ERROR("APP EVENT RESIZE {} {}", event.m_width, event.m_height);
         glViewport(0.0,0.0,event.m_width, event.m_height);
     }
 }
