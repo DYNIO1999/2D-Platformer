@@ -44,7 +44,7 @@ namespace LightInDarkness{
 
     void OrtoCamera::OnUpdate(float dt){
 
-        APP_INFO("CAMERA POSITION: {} {} {}", m_position.x, m_position.y, m_position.z);
+        //APP_INFO("CAMERA POSITION: {} {} {}", m_position.x, m_position.y, m_position.z);
         
         if (Input::IsKeyPressed(GLFW_KEY_W))
         {

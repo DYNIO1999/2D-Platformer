@@ -5,6 +5,8 @@
 
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Texture.h"
+
 namespace LightInDarkness{
 
     static void openglErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar const *message, void const *user_param)
@@ -66,6 +68,12 @@ namespace LightInDarkness{
         }();
         std::cout << src_str << ", " << type_str << ", " << severity_str << ", " << id << ": " << message << '\n';
     }
+
+
+struct VertexData{
+    glm::vec3 position;
+    glm::vec2 textureCords;
+};
 class Renderer
 {
 public:

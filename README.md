@@ -8,14 +8,16 @@ Platformer 2D in OpenGL simple project
     - Abstraction:
         - OpenGL buffers [DONE]
         - Shaders [DONE]
-    - Camera [WORKING]
+        - Texture
+        - Mesh?
+    - Camera 
         - figure out ratio[DONE]
-        - add zoom
-        - ratio based on size of window
+        - add zoom [DONE]
+        - ratio based on size of window [DONE]
         - add movement [DONE]
-    - Architecture []
-    - Minimize the number of drawing calls so BATCH RENDERER FOR 2D
-    - Placing a lot of geometry data in a single buffer object and batching it all up into a single glDraw… 
+    - Architecture of Rendererer[]
+    - Minimize the number of drawing calls so BATCH RENDERER FOR 2D []
+    - Placing a lot of geometry data in a single buffer object and batching it all up into a single glDraw… [] 
 - Implement Mesh
     - Box/Quad
     - Circle

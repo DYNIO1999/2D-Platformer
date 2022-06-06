@@ -22,13 +22,14 @@ namespace LightInDarkness
 
         float vertices[20] = {
             -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, -1.0f, 0.0f, 0.0f, 0.0f
+            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 
+            1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+            1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 
             };
         uint indices[6] = {
-            0, 1, 2,
-            2, 3, 0};
+            0, 1, 3, 
+            1, 2, 3  
+        };
 
         uint VBO;
         uint IBO;
@@ -37,6 +38,7 @@ namespace LightInDarkness
         GLuint shaderProgram;
         VertexArray vertexArrayObj;        
         std::shared_ptr<Shader> testShader;
+        std::shared_ptr<Texture> testTexture;
         
         OrtoCamera m_camera;
 
