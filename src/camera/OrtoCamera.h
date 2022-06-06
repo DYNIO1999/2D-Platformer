@@ -10,14 +10,10 @@ class OrtoCamera
 {
 public:
     OrtoCamera() = default;
-    OrtoCamera(float _left, float _right, float _bottom, float _top);
-    OrtoCamera(float _aspectRatio);
+    OrtoCamera(float _aspectRatio, float _zoom = 1.0f);
     ~OrtoCamera();
 
-
-
-
-    void SetProjection(float _aspectRatio);
+    void SetCamera(float _aspectRatio, float _zoom = 1.0f);
     void SetProjection(float _left, float _right, float _bottom, float _top);
     const glm::mat4& GetViewMatrix() const{return m_viewMatrix;}
     const glm::mat4 &GetProjectionMatrix() const { return m_projectionMatrix;}
@@ -32,6 +28,7 @@ private:
 
     void OnWindowResize(const Event &e);
     void UpdateViewMatrix();
+    float m_zoom{1.0f};
     float m_aspectRatio{1.0f};
     float m_cameraSpeed{1.0f};
     glm::mat4 m_projectionMatrix;

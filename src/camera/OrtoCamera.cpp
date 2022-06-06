@@ -5,34 +5,35 @@
 
 namespace LightInDarkness{
 
-    OrtoCamera::OrtoCamera(float _left, float _right, float _bottom, float _top):
-    m_projectionMatrix(glm::ortho(_left,_right,_bottom,_top,-1.0f,1.0f)),
-    m_viewMatrix(1.0f)
+
+    OrtoCamera::OrtoCamera(float _aspectRatio, float _zoom):
+    m_aspectRatio(_aspectRatio)
     {
+        m_aspectRatio = _aspectRatio;
+        m_zoom = _zoom;
         auto &window = App::Get();
         window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
-
-        m_viewProjectionMatrix =  m_projectionMatrix* m_viewMatrix;
+        SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
 
-    OrtoCamera::OrtoCamera(float _aspectRatio){
-        
+    void OrtoCamera::SetCamera(float _aspectRatio, float _zoom)
+    {
+        m_aspectRatio = _aspectRatio;
+        m_zoom = _zoom;
+        auto &window = App::Get();
+        window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
+        SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
-
     OrtoCamera::~OrtoCamera(){
 
     }
     void OrtoCamera::SetProjection(float _left, float _right, float _bottom, float _top)
     {
-        auto &window = App::Get();
-        window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
         m_viewMatrix =  glm::mat4(1.0f);
         m_projectionMatrix = glm::ortho(_left, _right, _bottom, _top, -1.0f, 1.0f);
         m_viewProjectionMatrix = m_projectionMatrix * m_viewMatrix;
     }
-    void OrtoCamera::SetProjection(float _aspectRatio){
-        
-    }
+
     
     void OrtoCamera::UpdateViewMatrix()
     {
