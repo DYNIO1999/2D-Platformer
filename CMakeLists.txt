@@ -26,7 +26,10 @@ include_directories (src/
                      vendor/glfw/include/
                      vendor/glm/include/glm
                      vendor/spdlog/include
+                     vendor/stb
                      )
+
+file (GLOB         STB_SOURCES src/stb_image.cpp)
 file (GLOB         GLAD_SOURCES vendor/glad/src/glad.c)
 file (GLOB_RECURSE PROJECT_HEADERS src/*.hpp
                                    src/*.h)
@@ -37,7 +40,7 @@ file (GLOB_RECURSE PROJECT_SOURCES src/*.cpp
 
 add_definitions (-DGLFW_INCLUDE_NONE
                  -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
-add_executable (${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${GLAD_SOURCES})
+add_executable (${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS} ${GLAD_SOURCES} ${STB_SOURCES})
 target_link_libraries (${PROJECT_NAME}
                        glfw
                        ${GLFW_LIBRARIES}

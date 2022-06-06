@@ -26,7 +26,7 @@ namespace LightInDarkness
         vertexArrayObj.AddBuffer<IndexBuffer>(testIndexBuffer);
 
        testShader = Shader::Create("../../resources/shaders/BaseShader.glsl");
-
+       testTexture = Texture::Create("../../resources/textures/woodwall.png");
     }
     void TestScene::OnEvent(){
             m_camera.OnEvent();
@@ -43,10 +43,12 @@ namespace LightInDarkness
         
         //glDrawArrays(GL_TRIANGLES,0,4);
         testShader->Bind();
+        testTexture->Bind(0);
         testShader->SetMat4("u_Model", glm::scale(modelMatrix, glm::vec3(0.5f, 1.0f, 1.0f)));
         testShader->SetMat4("u_View", m_camera.GetViewMatrix());
         testShader->SetMat4("u_Projection", m_camera.GetProjectionMatrix());
-        testShader->SetVec4("u_Color", glm::vec4(0.75f, 0.3f, 0.6f, 1.0f));
+        testShader->SetInt("u_Texture",0);
+        //testShader->SetVec4("u_Color", glm::vec4(0.75f, 0.3f, 0.6f, 1.0f));
         glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
     }
     void TestScene::OnShutdown(){
