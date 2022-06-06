@@ -13,8 +13,8 @@ namespace LightInDarkness
         Renderer::Initialize();
         auto &window = App::Get().GetWindow();
         auto [winWidth, winHeight] = window.GetWindowSize();
-        APP_INFO("SIZE--> {}  {}",winWidth, winHeight);
-        m_camera.SetProjection((-static_cast<float>((winWidth / winHeight))) * 10.0f, static_cast<float>((winWidth / winHeight)) * 10.0f, (-1.0f) * 10.0f, 1.0f * 10.0f);
+        m_camera.SetCamera(winWidth/winHeight, 10.0f);
+        m_camera.SetCameraSpeed(10.0f);
 
         VertexBuffer testBuffer{vertices, sizeof(vertices)};
         IndexBuffer testIndexBuffer{indices, sizeof(indices)};
@@ -22,12 +22,10 @@ namespace LightInDarkness
         testLayout.Push<float>(3);
         testLayout.Push<float>(2);
 
-
         vertexArrayObj.AddBuffer<VertexBuffer, VertexBufferLayout>(testBuffer, testLayout);
         vertexArrayObj.AddBuffer<IndexBuffer>(testIndexBuffer);
 
        testShader = Shader::Create("../../resources/shaders/BaseShader.glsl");
-
 
     }
     void TestScene::OnEvent(){

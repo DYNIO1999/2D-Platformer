@@ -9,10 +9,10 @@ Platformer 2D in OpenGL simple project
         - OpenGL buffers [DONE]
         - Shaders [DONE]
     - Camera [WORKING]
-        - figure out ratio
+        - figure out ratio[DONE]
         - add zoom
-        - add movement
         - ratio based on size of window
+        - add movement [DONE]
     - Architecture []
     - Minimize the number of drawing calls so BATCH RENDERER FOR 2D
     - Placing a lot of geometry data in a single buffer object and batching it all up into a single glDraw… 
