@@ -15,7 +15,17 @@ namespace LightInDarkness
     void Renderer::BeginDraw(const glm::mat4 &viewProj){
         std::cout<<viewProj[0][0]<<'\n';
     }
-    void Renderer::Submit(){
+
+    static void DrawRect(){
+        
+    }
+    static void DrawCircle(){
+
+    }
+    static void DrawLine(){
+        
+    }
+    static void DrawRotatedQuad(){
 
     }
     void Renderer::EndDraw(){
