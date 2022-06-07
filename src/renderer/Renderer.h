@@ -80,7 +80,13 @@ public:
     static void Initialize();
     static void Clear(const glm::vec4& color);
     static void BeginDraw(const glm::mat4& viewProj);
-    static void Submit();
+    
+    static void DrawRect();
+    static void DrawCircle();
+    static void DrawLine();
+    static void DrawRotatedRect();
+
+    
     static void EndDraw();
     static void Shutdown();
 private:
