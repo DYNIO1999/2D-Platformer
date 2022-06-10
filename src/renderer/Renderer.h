@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
+#include "camera/OrtoCamera.h"
 #include "VertexArray.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -74,21 +75,37 @@ struct VertexData{
     glm::vec3 position;
     glm::vec2 textureCords;
 };
+
+struct RendererData
+{
+    glm::mat4 currentViewProjection;
+    std::shared_ptr<Shader> textureShader;
+    std::shared_ptr<Shader> colorShader;
+    std::shared_ptr<VertexArray> vertexArray;
+    std::shared_ptr<VertexBufferLayout> vertexBufferLayout;
+    std::shared_ptr<IndexBuffer> indexBuffer;
+    std::shared_ptr<VertexBuffer> vertexBuffer;
+    std::vector<VertexData> vertices;
+    std::vector<uint> indices;     
+};
 class Renderer
 {
 public:
     static void Initialize();
     static void Clear(const glm::vec4& color);
-    static void BeginDraw(const glm::mat4& viewProj);
+    static void BeginScene(const OrtoCamera& _camera);
+
+    static void DrawRect(const glm::vec2 _position, const glm::vec2 _size, const glm::vec4 _color);
+    static void DrawCircle(const glm::vec2 _position, float _radius, const glm::vec4 _color);
+    static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, const glm::vec4 _color);
     
-    static void DrawRect();
-    static void DrawCircle();
     static void DrawLine();
-    static void DrawRotatedRect();
 
     
-    static void EndDraw();
+    static void EndScene();
     static void Shutdown();
+    static RendererData s_rendererData;
+
 private:
 };
 }

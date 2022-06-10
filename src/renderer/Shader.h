@@ -32,9 +32,7 @@ namespace LightInDarkness
     {
     public:
         Shader() =default;
-        
         Shader(const std::string& _path);
-        
         ~Shader();
         static std::shared_ptr<Shader> Create(const std::string &_path);
 

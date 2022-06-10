@@ -21,14 +21,14 @@ namespace LightInDarkness
     class WindowResizeEvent : public Event
     {
     public:
-        WindowResizeEvent(double width, double height):m_width(width), m_height(height){
+        WindowResizeEvent(float width, float height):m_width(width), m_height(height){
 
         }
         ~WindowResizeEvent(){
 
         }
         EventID GetEventType() const override { return EventTypeID<WindowResizeEvent>(); }
-        double m_width, m_height;
+        float m_width, m_height;
     private:    
     };
     

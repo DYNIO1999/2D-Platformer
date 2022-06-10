@@ -14,6 +14,11 @@ public:
     VertexArray();
     ~VertexArray();
 
+    static std::shared_ptr<VertexArray> Create(){
+        std::shared_ptr<VertexArray> result =  std::make_shared<VertexArray>();
+        return result;
+    }
+
 
     // THINK HOW TO DO IT!!!
 

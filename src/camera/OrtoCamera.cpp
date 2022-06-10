@@ -71,7 +71,7 @@ namespace LightInDarkness{
     {
         auto &window = App::Get();
         auto event = window.s_eventDispatcher.Cast<WindowResizeEvent>(e);
-        APP_ERROR("CAMERA EVENT RESIZE {} {}", event.m_width, event.m_height);
+        SetCamera(event.m_width/event.m_height,m_zoom);
         glViewport(0.0, 0.0, event.m_width, event.m_height);
     }
 }
