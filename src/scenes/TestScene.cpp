@@ -43,10 +43,10 @@ namespace LightInDarkness
         glm::vec2 startPos{0.0f,0.0f};
         static float rotation =0.0f;
         rotation += dt*10.0f; 
-        for (size_t i = 0; i < 10; i++)
+        for (size_t i = 0; i < 100; i++)
         {
             glm::vec4 color(1);
-            for (size_t j = 0; j < 10; j++){
+            for (size_t j = 0; j < 100; j++){
             
             if((((i&1)==0)&&((j&1)!=0)) || (((i&1)!=0)&&((j&1)==0))){
                 color = glm::vec4{0.15f, 0.3f, 0.6f, 1.0};

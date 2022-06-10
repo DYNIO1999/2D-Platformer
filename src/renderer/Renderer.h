@@ -86,7 +86,8 @@ struct RendererData
     std::shared_ptr<IndexBuffer> indexBuffer;
     std::shared_ptr<VertexBuffer> vertexBuffer;
     std::vector<VertexData> vertices;
-    std::vector<uint> indices;     
+    std::vector<uint> indices; 
+    uint indexCount;
 };
 class Renderer
 {
