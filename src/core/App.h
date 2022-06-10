@@ -29,12 +29,13 @@ public:
     static float GetDeltaTime(){return s_deltaTime;}
     static EventDispatcher s_eventDispatcher;
     Window& GetWindow() const {return *m_Window;};
+    
 private:
     App();
     ~App();
+
     void OnWindowClose(const Event &);
     void OnWindowResize(const Event &);
-    
     
     void Initialize();
     void Shutdown();

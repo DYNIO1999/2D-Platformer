@@ -23,13 +23,16 @@ namespace LightInDarkness{
         m_Window = std::make_shared<Window>(m_windowProps);
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
         s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
-
         //Logger
         Logger::Init();
         //Logger
-
+        
+        //Renderer
+        Renderer::Initialize();
+        //Rednerer
         //Scenes
         SceneManager::Get().PushScene(std::make_shared<TestScene>());
+
         //Scenes
     }
     void App::Run(){
@@ -40,17 +43,21 @@ namespace LightInDarkness{
             SceneManager::Get().Current()->OnEvent();
             SceneManager::Get().Current()->OnUpdate(App::GetDeltaTime());
             }
+
             m_Window->Update();
             float currentTime  = glfwGetTime();
             s_deltaTime = currentTime - m_lastFrameTime;
-            //std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
+
+            std::string dt = std::to_string(s_deltaTime);
+            m_Window->SetWindowTitle(dt);
             m_lastFrameTime = currentTime;
+            //std::cout<<"DELTA TIME:"<<s_deltaTime<<'\n';
         }
         Shutdown();
          
     }
     void App::Shutdown(){
-    
+        Renderer::Shutdown();
     }
     void App::OnWindowClose(const Event&){
         m_isRunning =false;

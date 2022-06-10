@@ -136,7 +136,7 @@ namespace LightInDarkness{
     {   
         int numberUniforms{0};
         glGetProgramInterfaceiv(GetID(), GL_UNIFORM, GL_ACTIVE_RESOURCES, &numberUniforms);
-        APP_INFO("Active Uniforms: {}", numberUniforms);
+        //APP_INFO("Active Uniforms: {}", numberUniforms);
         
         GLenum properties[] = {GL_NAME_LENGTH, GL_TYPE, GL_LOCATION, GL_BLOCK_INDEX};
         
@@ -147,8 +147,8 @@ namespace LightInDarkness{
 
             std::vector<char> name(nameBufSize);
             glGetProgramResourceName(m_shaderID, GL_UNIFORM, i, nameBufSize, NULL, &name[0]);
-            APP_INFO("Uniform Name: {}", &name[0]);
-            APP_INFO("Uniform Location: {}", results[2]);
+            //APP_INFO("Uniform Name: {}", &name[0]);
+            //APP_INFO("Uniform Location: {}", results[2]);
             std::string temp(&name[0]);
             m_uniformLocations[temp] = results[2];
         }

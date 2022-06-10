@@ -50,6 +50,11 @@ public:
     void Update();
     void SetVSync(bool set);
     bool IsVSync()const{return m_vSync;}
+    void SetWindowTitle(const std::string& _title){
+        std::string title = m_windowData.title+" "+ _title;
+        glfwSetWindowTitle(m_window,title.c_str());
+    }
+    
 private:
     void Initialize();
     void Shutdown();

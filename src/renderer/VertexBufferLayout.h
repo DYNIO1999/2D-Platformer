@@ -63,6 +63,11 @@ public:
     std::vector<VertexBufferElement>::iterator begin() { return m_elements.begin(); }
     std::vector<VertexBufferElement>::iterator end() { return m_elements.end(); }
 
+    static std::shared_ptr<VertexBufferLayout> Create(){
+        std::shared_ptr<VertexBufferLayout> result = std::make_shared<VertexBufferLayout>();
+        return result;
+    }
+
 private:
     std::vector<VertexBufferElement> m_elements;
     unsigned int m_stride; 

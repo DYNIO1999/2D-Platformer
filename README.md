@@ -17,9 +17,10 @@ Platformer 2D in OpenGL simple project
     - Drawing Methods
     - Shaders
     - Texture support
-    - Command Queue?
 
 - Batch Renderer
+    
+
 - Texture Atlas
 - Sprites
 - TileMap System
@@ -30,8 +31,10 @@ Platformer 2D in OpenGL simple project
 - Particle System GPU
 
 - Physics:
-- Lights:
 
+- Lights:
+    - Point Light
+    - 
 - User Interfaces
 
 - Special Effects
