@@ -13,13 +13,15 @@ Platformer 2D in OpenGL simple project
     - ratio based on size of window [DONE]
     - add movement [DONE]
 
+- Batch Renderer
+    - Geometry
+    - Colors
+    - Textures
+
 - Renderer 2D Design 
     - Drawing Methods
     - Shaders
     - Texture support
-
-- Batch Renderer
-    
 
 - Texture Atlas
 - Sprites
