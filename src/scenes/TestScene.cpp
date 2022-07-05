@@ -28,6 +28,8 @@ namespace LightInDarkness
        testShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
        testTexture = Texture::Create("../../resources/textures/woodwall.png");
 
+
+
        window.SetVSync(true);
     }
     void TestScene::OnEvent(){
@@ -60,6 +62,11 @@ namespace LightInDarkness
         Renderer::DrawRect({0.0f, 0.0f}, {1.0f, 1.0}, {0.5f, 0.5f, 0.6f, 1.0});
         Renderer::DrawRotatedRect({0.0, 0.0}, {1.2f, 1.0f}, rotation*5, {0.1f, 0.3f, 0.6f, 1.0});
         Renderer::DrawRotatedRect({0.0, 0.0}, {1.1f, 1.0f}, rotation, {0.5f, 0.3f, 0.6f, 1.0});
+        
+        
+        Renderer::DrawRect({0.0f, 0.0f}, {1.1f, 1.0f}, testTexture);
+        Renderer::DrawRotatedRect({5.0, 0.0}, {2.0f, 2.0f}, rotation*5, testTexture);
+
         Renderer::EndScene();
 
         //vertexArrayObj.Bind();

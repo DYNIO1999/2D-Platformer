@@ -97,12 +97,15 @@ public:
     static void BeginScene(const OrtoCamera& _camera);
 
     static void DrawRect(const glm::vec2 _position, const glm::vec2 _size, const glm::vec4 _color);
+    static void DrawRect(const glm::vec2 _position, const glm::vec2 _size, std::shared_ptr<Texture> _texture);
+
     static void DrawCircle(const glm::vec2 _position, float _radius, const glm::vec4 _color);
+
     static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, const glm::vec4 _color);
-    
+    static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, std::shared_ptr<Texture> _texture);
+
     static void DrawLine();
 
-    
     static void EndScene();
     static void Shutdown();
     static RendererData s_rendererData;

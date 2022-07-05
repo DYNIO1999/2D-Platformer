@@ -158,7 +158,7 @@ namespace LightInDarkness{
         if(m_uniformLocations.find(_name)!=m_uniformLocations.end()){
             return m_uniformLocations[_name];
         }
-        APP_WARN("Cant find specifed uniform!");
+        APP_WARN("Cant find specifed uniform: NAME[{}] PATH [{}]", _name, m_shaderPath);
         return -1;
     }
     void Shader::SetFloat(const std::string &_name, float _value){
