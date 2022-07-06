@@ -27,6 +27,7 @@ namespace LightInDarkness
 
        testShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
        testTexture = Texture::Create("../../resources/textures/woodwall.png");
+       spriteSheetTexture = Texture::Create("../../resources/textures/sheet.png");
 
 
 
@@ -65,9 +66,17 @@ namespace LightInDarkness
         
         
         Renderer::DrawRect({0.0f, 0.0f}, {1.1f, 1.0f}, testTexture);
-        Renderer::DrawRotatedRect({5.0, 0.0}, {2.0f, 2.0f}, rotation*5, testTexture);
+        Renderer::DrawRotatedRect({5.0, 0.0}, {2.0f, 2.0f}, rotation*5, spriteSheetTexture);
 
         Renderer::EndScene();
+
+
+
+        Renderer::SetBlending(false);
+        Renderer::BeginScene(m_camera);
+        Renderer::DrawRotatedRect({10.0, 0.0}, {2.0f, 2.0f}, rotation * 5, spriteSheetTexture);
+        Renderer::EndScene();
+
 
         //vertexArrayObj.Bind();
         //glm::mat4 modelMatrix(1.0f);

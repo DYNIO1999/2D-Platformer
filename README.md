@@ -13,32 +13,20 @@ Platformer 2D in OpenGL simple project
     - ratio based on size of window [DONE]
     - add movement [DONE]
 
-- Batch Renderer
-    - Geometry
-    - Colors
-    - Textures
-
-- Renderer 2D Design 
-    - Drawing Methods
-    - Shaders
-    - Texture support
-
+---[7 DAYS]--- 
 - Texture Atlas
+- BatchRendering
 - Sprites
+- Circle Drawing
 - TileMap System
-
-- Game Object storage and access ECS or CGO
-
 - Particle System CPU
-- Particle System GPU
+- Game Object storage and access CGO
 
+---[]---
 - Physics:
-
 - Lights:
     - Point Light
-    - 
 - User Interfaces
-
 - Special Effects
 
 

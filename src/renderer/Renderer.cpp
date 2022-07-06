@@ -32,6 +32,7 @@ namespace LightInDarkness
 
         s_rendererData.colorShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
         s_rendererData.textureShader = Shader::Create("../../resources/shaders/TextureShader.glsl");
+        s_rendererData.isBlending = true;
     }
     void Renderer::Clear(const glm::vec4 &color)
     {
@@ -40,9 +41,12 @@ namespace LightInDarkness
     }
     void Renderer::BeginScene(const OrtoCamera &_camera)
     {
+        if(s_rendererData.isBlending){
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
         s_rendererData.currentViewProjection = _camera.GetViewProjectionMatrix();
     }
-
     void Renderer::DrawRect(const glm::vec2 _position, const glm::vec2 _size, const glm::vec4 _color)
     {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f),glm::vec3{_position,0.0f})*
@@ -113,5 +117,8 @@ namespace LightInDarkness
     }
     void Renderer::Shutdown(){
 
+    }
+    void Renderer::SetBlending(bool _set){
+        s_rendererData.isBlending =_set;
     }
 }

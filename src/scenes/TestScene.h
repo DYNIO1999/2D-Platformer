@@ -39,6 +39,7 @@ namespace LightInDarkness
         VertexArray vertexArrayObj;        
         std::shared_ptr<Shader> testShader;
         std::shared_ptr<Texture> testTexture;
+        std::shared_ptr<Texture> spriteSheetTexture;
         
         OrtoCamera m_camera;
 

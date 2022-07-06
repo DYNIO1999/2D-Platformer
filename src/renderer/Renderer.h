@@ -88,6 +88,7 @@ struct RendererData
     std::vector<VertexData> vertices;
     std::vector<uint> indices; 
     uint indexCount;
+    bool isBlending;
 };
 class Renderer
 {
@@ -104,11 +105,15 @@ public:
     static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, const glm::vec4 _color);
     static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, std::shared_ptr<Texture> _texture);
 
+
+    static void FlushBatch();
     static void DrawLine();
+
 
     static void EndScene();
     static void Shutdown();
     static RendererData s_rendererData;
+    static void SetBlending(bool _set);
 
 private:
 };
