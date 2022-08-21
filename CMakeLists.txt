@@ -24,7 +24,7 @@ add_compile_options(-Wall -Wextra)
 include_directories (src/
                      vendor/glad/include/
                      vendor/glfw/include/
-                     vendor/glm/include/glm
+                     vendor/glm
                      vendor/spdlog/include
                      vendor/stb
                      )

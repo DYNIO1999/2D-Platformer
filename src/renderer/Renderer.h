@@ -67,7 +67,10 @@ namespace LightInDarkness{
                 return "HIGH";
             }
         }();
+
+        if(severity!=GL_DEBUG_SEVERITY_NOTIFICATION){
         std::cout << src_str << ", " << type_str << ", " << severity_str << ", " << id << ": " << message << '\n';
+        }
     }
 
 

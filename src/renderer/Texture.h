@@ -1,5 +1,6 @@
 #ifndef _SRC_RENDERER_TEXTURE_H_
 #define _SRC_RENDERER_TEXTURE_H_
+#include <string>
 #include <stb_image.h>
 #include <memory>
 
