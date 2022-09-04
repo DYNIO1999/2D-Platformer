@@ -101,7 +101,7 @@ struct RendererData
     RectVertexData* rectVertexBufferBase =nullptr;
     RectVertexData* rectVertexBufferPtr = nullptr;
 
-    
+    glm::mat4 transform;
     uint indicesCount;
     bool isBlending;
 };

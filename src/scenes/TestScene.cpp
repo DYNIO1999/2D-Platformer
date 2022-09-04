@@ -10,7 +10,6 @@ namespace LightInDarkness
     }
 
     void TestScene::OnInit(){
-        Renderer::Initialize();
         auto &window = App::Get().GetWindow();
         auto [winWidth, winHeight] = window.GetWindowSize();
         m_camera.SetCamera((static_cast<float>(winWidth) / static_cast<float>(winHeight)), 10.0f);
@@ -31,7 +30,7 @@ namespace LightInDarkness
         Renderer::Clear(glm::vec4(0.7, 0.047, 0.047, 1.0f));
 
         Renderer::BeginScene(m_camera);
-        //Rendering
+        Renderer::DrawRect({0.0f, 0.0f}, {1.0f, 1.0}, {1.0f, 0.0f, 0.0f, 1.0});
         Renderer::EndScene();
     }
     void TestScene::OnShutdown(){

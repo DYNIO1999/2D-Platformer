@@ -28,9 +28,6 @@ public:
     void AddBuffer(const T &_buffer);
     template <>
     void AddBuffer<VertexBuffer>(VertexBuffer&_buffer, VertexBufferLayout& _layout){
-        //STRIDE AND STUFF THINK !!!
-        //std::cout<<"SIZE:"<<_layout.GetSize() <<'\n';
- 
         unsigned int offset =0;
         for (auto& item : _layout)
         {

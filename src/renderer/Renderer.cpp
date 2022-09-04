@@ -10,9 +10,9 @@ namespace LightInDarkness
         (void)openglErrorCallback;
 
         s_rendererData.vertexArray = VertexArray::Create();
-        s_rendererData.vertexBuffer = VertexBuffer::Create(s_rendererData.maxVertices);
-        s_rendererData.vertexBufferLayout = VertexBufferLayout::Create();
+        s_rendererData.vertexBuffer = VertexBuffer::Create((uint)(s_rendererData.maxVertices * sizeof(RectVertexData)));
 
+        s_rendererData.vertexBufferLayout = VertexBufferLayout::Create();
         s_rendererData.vertexBufferLayout->Push<float>(3);
         s_rendererData.vertexBufferLayout->Push<float>(4);
 
@@ -36,9 +36,9 @@ namespace LightInDarkness
             offset += 4;
         }
 
-        s_rendererData.indexBuffer = IndexBuffer::Create(rectIndices, s_rendererData.maxIndices);
+        s_rendererData.indexBuffer = IndexBuffer::Create(rectIndices, (uint)(s_rendererData.maxIndices * sizeof(uint)));
         s_rendererData.vertexArray->AddBuffer<IndexBuffer>(*s_rendererData.indexBuffer);
-        delete[] rectIndices;
+        //delete[] rectIndices;
 
         s_rendererData.rectVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
         s_rendererData.rectVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
@@ -47,7 +47,7 @@ namespace LightInDarkness
 
         s_rendererData.colorShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
         s_rendererData.textureShader = Shader::Create("../../resources/shaders/TextureShader.glsl");
-        s_rendererData.isBlending = true;
+        s_rendererData.isBlending = false;
    
     }
     void Renderer::Clear(const glm::vec4 &color)
@@ -62,9 +62,14 @@ namespace LightInDarkness
     }
     void Renderer::FlushBatch(){
         if (s_rendererData.indicesCount == 0){
-            APP_INFO("Nothing to draw!");
             return; 
         }
+
+        uint dataSize = (uint)((uint8_t *)s_rendererData.rectVertexBufferPtr - (uint8_t *)s_rendererData.rectVertexBufferBase);
+        s_rendererData.vertexBuffer->SetSubData(s_rendererData.rectVertexBufferBase, dataSize);
+        s_rendererData.vertexArray->Bind();
+        s_rendererData.colorShader->Bind();
+        glDrawElements(GL_TRIANGLES, s_rendererData.indicesCount, GL_UNSIGNED_INT, 0);
     }
     void Renderer::BeginScene(const OrtoCamera &_camera)
     {
@@ -80,14 +85,17 @@ namespace LightInDarkness
     {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f),glm::vec3{_position,0.0f})*
         glm::scale(glm::mat4(1.0f), glm::vec3{_size.x, _size.y,1.0f});
-        
-        s_rendererData.vertexArray->Bind();
-        s_rendererData.colorShader->Bind();
-        s_rendererData.colorShader->SetMat4("u_Model", transform);
-        s_rendererData.colorShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
-        s_rendererData.colorShader->SetVec4("u_Color", _color);
+    
+        const size_t rectVertexCount = 4;
+        //constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
-        //glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
+        for (size_t i = 0; i < rectVertexCount; i++)
+        {
+            s_rendererData.rectVertexBufferPtr->position = transform * s_rendererData.rectVertexPositions[i];
+            s_rendererData.rectVertexBufferPtr->color = _color;
+            s_rendererData.rectVertexBufferPtr++;
+        }
+        s_rendererData.indicesCount += 6;
     }
 
     void Renderer::DrawRect(const glm::vec2 _position, const glm::vec2 _size, std::shared_ptr<Texture> _texture)
