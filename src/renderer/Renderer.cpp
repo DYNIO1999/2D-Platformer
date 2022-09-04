@@ -5,39 +5,66 @@ namespace LightInDarkness
     RendererData Renderer::s_rendererData;
     void Renderer::Initialize(){
         glEnable(GL_DEBUG_OUTPUT);
+        
         glDebugMessageCallback(openglErrorCallback, nullptr);
+        (void)openglErrorCallback;
 
         s_rendererData.vertexArray = VertexArray::Create();
-        s_rendererData.vertices.emplace_back(VertexData{glm::vec3{-1.0f, -1.0f, 0.0f}, glm::vec2{0.0f, 0.0f}});
-        s_rendererData.vertices.emplace_back(VertexData{glm::vec3{-1.0f, 1.0f, 0.0f}, glm::vec2{0.0f, 1.0f}});
-        s_rendererData.vertices.emplace_back(VertexData{glm::vec3{1.0f, 1.0f, 0.0f}, glm::vec2{1.0f, 1.0f}});
-        s_rendererData.vertices.emplace_back(VertexData{glm::vec3{1.0f, -1.0f, 0.0f}, glm::vec2{1.0f, 0.0f}});
-        
-        s_rendererData.indices.emplace_back(0);
-        s_rendererData.indices.emplace_back(1);
-        s_rendererData.indices.emplace_back(3);
-        s_rendererData.indices.emplace_back(1);
-        s_rendererData.indices.emplace_back(2);
-        s_rendererData.indices.emplace_back(3);
-
-        s_rendererData.vertexBuffer = VertexBuffer::Create(s_rendererData.vertices.data(), s_rendererData.vertices.size()* sizeof(VertexData));
-        s_rendererData.indexBuffer = IndexBuffer::Create(s_rendererData.indices.data(), s_rendererData.indices.size() * sizeof(uint));
+        s_rendererData.vertexBuffer = VertexBuffer::Create(s_rendererData.maxVertices);
         s_rendererData.vertexBufferLayout = VertexBufferLayout::Create();
 
         s_rendererData.vertexBufferLayout->Push<float>(3);
-        s_rendererData.vertexBufferLayout->Push<float>(2);
+        s_rendererData.vertexBufferLayout->Push<float>(4);
 
+        s_rendererData.rectVertexBufferBase = new RectVertexData[s_rendererData.maxVertices];
+        
+        
         s_rendererData.vertexArray->AddBuffer<VertexBuffer, VertexBufferLayout>(*s_rendererData.vertexBuffer, *s_rendererData.vertexBufferLayout);
+        
+        uint* rectIndices = new uint[s_rendererData.maxIndices]; 
+        uint offset = 0;
+        for (int i = 0; i < s_rendererData.maxIndices; i += 6)
+        {
+            rectIndices[i + 0] = offset + 0;
+            rectIndices[i + 1] = offset + 1;
+            rectIndices[i + 2] = offset + 2;
+
+            rectIndices[i + 3] = offset + 2;
+            rectIndices[i + 4] = offset + 3;
+            rectIndices[i + 5] = offset + 0;
+
+            offset += 4;
+        }
+
+        s_rendererData.indexBuffer = IndexBuffer::Create(rectIndices, s_rendererData.maxIndices);
         s_rendererData.vertexArray->AddBuffer<IndexBuffer>(*s_rendererData.indexBuffer);
+        delete[] rectIndices;
+
+        s_rendererData.rectVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+        s_rendererData.rectVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
+        s_rendererData.rectVertexPositions[2] = {0.5f, 0.5f, 0.0f, 1.0f};
+        s_rendererData.rectVertexPositions[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
 
         s_rendererData.colorShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
         s_rendererData.textureShader = Shader::Create("../../resources/shaders/TextureShader.glsl");
         s_rendererData.isBlending = true;
+   
     }
     void Renderer::Clear(const glm::vec4 &color)
     {
         glClearColor(color.r,color.g,color.b,color.a);
         glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    void Renderer::StartBatch(){
+        s_rendererData.indicesCount = 0;
+        s_rendererData.rectVertexBufferPtr = s_rendererData.rectVertexBufferBase;
+    }
+    void Renderer::FlushBatch(){
+        if (s_rendererData.indicesCount == 0){
+            APP_INFO("Nothing to draw!");
+            return; 
+        }
     }
     void Renderer::BeginScene(const OrtoCamera &_camera)
     {
@@ -46,6 +73,8 @@ namespace LightInDarkness
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         }
         s_rendererData.currentViewProjection = _camera.GetViewProjectionMatrix();
+        StartBatch();
+        
     }
     void Renderer::DrawRect(const glm::vec2 _position, const glm::vec2 _size, const glm::vec4 _color)
     {
@@ -58,7 +87,7 @@ namespace LightInDarkness
         s_rendererData.colorShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
         s_rendererData.colorShader->SetVec4("u_Color", _color);
 
-        glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
+        //glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
     }
 
     void Renderer::DrawRect(const glm::vec2 _position, const glm::vec2 _size, std::shared_ptr<Texture> _texture)
@@ -73,7 +102,7 @@ namespace LightInDarkness
         s_rendererData.textureShader->SetInt("u_Texture", _texture->GetSlot());
         s_rendererData.textureShader->SetMat4("u_Model", transform);
         s_rendererData.textureShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
-        glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
+        //glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
     }
 
     void Renderer::DrawCircle(const glm::vec2 _position, float _radius, const glm::vec4 _color)
@@ -95,7 +124,7 @@ namespace LightInDarkness
         s_rendererData.colorShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
         s_rendererData.colorShader->SetVec4("u_Color", _color);
 
-        glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
+        //glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
     }
 
     void Renderer::DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, std::shared_ptr<Texture> _texture)
@@ -110,10 +139,10 @@ namespace LightInDarkness
         s_rendererData.textureShader->SetInt("u_Texture", _texture->GetSlot());
         s_rendererData.textureShader->SetMat4("u_Model", transform);
         s_rendererData.textureShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
-        glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
+        //glDrawElements(GL_TRIANGLES, s_rendererData.indices.size(), GL_UNSIGNED_INT, 0);
     }
     void Renderer::EndScene(){
-
+        FlushBatch();
     }
     void Renderer::Shutdown(){
 

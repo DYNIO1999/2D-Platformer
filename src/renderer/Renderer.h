@@ -12,7 +12,8 @@ namespace LightInDarkness{
 
     static void openglErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar const *message, void const *user_param)
     {
-
+        (void)length;
+        (void)user_param;
         auto const src_str = [source]()
         {
             switch (source)
@@ -74,23 +75,34 @@ namespace LightInDarkness{
     }
 
 
-struct VertexData{
+struct RectVertexData{
     glm::vec3 position;
-    glm::vec2 textureCords;
+    glm::vec4 color;
 };
 
 struct RendererData
 {
     glm::mat4 currentViewProjection;
+
     std::shared_ptr<Shader> textureShader;
     std::shared_ptr<Shader> colorShader;
     std::shared_ptr<VertexArray> vertexArray;
     std::shared_ptr<VertexBufferLayout> vertexBufferLayout;
     std::shared_ptr<IndexBuffer> indexBuffer;
     std::shared_ptr<VertexBuffer> vertexBuffer;
-    std::vector<VertexData> vertices;
-    std::vector<uint> indices; 
-    uint indexCount;
+
+    glm::vec4 rectVertexPositions[4];
+
+    const int maxRectsPerBatch{100};
+    const int maxVertices = {maxRectsPerBatch*4};
+    const int maxIndices = {maxRectsPerBatch*6};
+
+
+    RectVertexData* rectVertexBufferBase =nullptr;
+    RectVertexData* rectVertexBufferPtr = nullptr;
+
+    
+    uint indicesCount;
     bool isBlending;
 };
 class Renderer
@@ -109,7 +121,11 @@ public:
     static void DrawRotatedRect(const glm::vec2 _position, const glm::vec2 _size, float _rotation, std::shared_ptr<Texture> _texture);
 
 
+
+
+
     static void FlushBatch();
+    static void StartBatch(); 
     static void DrawLine();
 
 
