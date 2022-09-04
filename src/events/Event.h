@@ -1,6 +1,6 @@
 #ifndef _SRC_EVENTS_EVENT_H_
 #define _SRC_EVENTS_EVENT_H_
-
+#include <iostream>
 namespace LightInDarkness{
     using EventID = size_t;
     

@@ -23,7 +23,7 @@ namespace LightInDarkness
         
         uint* rectIndices = new uint[s_rendererData.maxIndices]; 
         uint offset = 0;
-        for (int i = 0; i < s_rendererData.maxIndices; i += 6)
+        for (uint i = 0; i < s_rendererData.maxIndices; i += 6)
         {
             rectIndices[i + 0] = offset + 0;
             rectIndices[i + 1] = offset + 1;
@@ -38,7 +38,7 @@ namespace LightInDarkness
 
         s_rendererData.indexBuffer = IndexBuffer::Create(rectIndices, (uint)(s_rendererData.maxIndices * sizeof(uint)));
         s_rendererData.vertexArray->AddBuffer<IndexBuffer>(*s_rendererData.indexBuffer);
-        //delete[] rectIndices;
+        delete[] rectIndices;
 
         s_rendererData.rectVertexPositions[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
         s_rendererData.rectVertexPositions[1] = {0.5f, -0.5f, 0.0f, 1.0f};
@@ -47,7 +47,8 @@ namespace LightInDarkness
 
         s_rendererData.colorShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
         s_rendererData.textureShader = Shader::Create("../../resources/shaders/TextureShader.glsl");
-        s_rendererData.isBlending = false;
+        s_rendererData.isBlending = true;
+        s_rendererData.drawCalls =0;
    
     }
     void Renderer::Clear(const glm::vec4 &color)
@@ -59,18 +60,24 @@ namespace LightInDarkness
     void Renderer::StartBatch(){
         s_rendererData.indicesCount = 0;
         s_rendererData.rectVertexBufferPtr = s_rendererData.rectVertexBufferBase;
+
     }
     void Renderer::FlushBatch(){
         if (s_rendererData.indicesCount == 0){
             return; 
         }
 
+    
         uint dataSize = (uint)((uint8_t *)s_rendererData.rectVertexBufferPtr - (uint8_t *)s_rendererData.rectVertexBufferBase);
         s_rendererData.vertexBuffer->SetSubData(s_rendererData.rectVertexBufferBase, dataSize);
         s_rendererData.vertexArray->Bind();
         s_rendererData.colorShader->Bind();
+
+        s_rendererData.colorShader->SetMat4("u_ViewProjection", s_rendererData.currentViewProjection);
         glDrawElements(GL_TRIANGLES, s_rendererData.indicesCount, GL_UNSIGNED_INT, 0);
+        s_rendererData.drawCalls++;
     }
+
     void Renderer::BeginScene(const OrtoCamera &_camera)
     {
         if(s_rendererData.isBlending){
@@ -88,6 +95,12 @@ namespace LightInDarkness
     
         const size_t rectVertexCount = 4;
         //constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+
+
+        if(s_rendererData.indicesCount >= s_rendererData.maxIndices){
+            FlushBatch();
+            StartBatch();
+        }
 
         for (size_t i = 0; i < rectVertexCount; i++)
         {
@@ -153,7 +166,7 @@ namespace LightInDarkness
         FlushBatch();
     }
     void Renderer::Shutdown(){
-
+        delete[] s_rendererData.rectVertexBufferBase;
     }
     void Renderer::SetBlending(bool _set){
         s_rendererData.isBlending =_set;

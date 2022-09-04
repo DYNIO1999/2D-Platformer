@@ -26,8 +26,10 @@ public:
         return instance;
     }
     
-    static float GetDeltaTime(){return s_deltaTime;}
+
+    static EventDispatcher& GetDispatcher(){return s_eventDispatcher;}
     static EventDispatcher s_eventDispatcher;
+    static float GetDeltaTime(){return s_deltaTime;}
     Window& GetWindow() const {return *m_Window;};
     
 private:

@@ -13,6 +13,7 @@ namespace LightInDarkness{
         m_zoom = _zoom;
         auto &window = App::Get();
         window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
+        window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
         SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
 
@@ -22,6 +23,7 @@ namespace LightInDarkness{
         m_zoom = _zoom;
         auto &window = App::Get();
         window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
+        window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
         SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
     OrtoCamera::~OrtoCamera(){
@@ -44,7 +46,6 @@ namespace LightInDarkness{
 
     void OrtoCamera::OnUpdate(float dt){
 
-        //APP_INFO("CAMERA POSITION: {} {} {}", m_position.x, m_position.y, m_position.z);
         
         if (Input::IsKeyPressed(GLFW_KEY_W))
         {
@@ -73,5 +74,18 @@ namespace LightInDarkness{
         auto event = window.s_eventDispatcher.Cast<WindowResizeEvent>(e);
         SetCamera(event.m_width/event.m_height,m_zoom);
         glViewport(0.0, 0.0, event.m_width, event.m_height);
+    }
+    void OrtoCamera::OnMouseScrolledEvent(const Event &e)
+    {
+        auto event = App::s_eventDispatcher.Cast<MouseScrolledEvent>(e);
+        SetZoom(event.m_yoffset);
+
+    }
+    void OrtoCamera::SetZoom(float _zoom)
+    {
+        m_zoom -= _zoom;
+        m_zoom = std::max(m_zoom, 0.25f);
+        SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
+
     }
 }

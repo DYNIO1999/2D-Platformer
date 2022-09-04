@@ -9,6 +9,7 @@
 
 #include "events/EventDispatcher.h"
 #include "events/WindowEvents.h"
+#include "events/MouseEvents.h"
 
 namespace LightInDarkness{
 

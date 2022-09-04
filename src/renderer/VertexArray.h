@@ -47,7 +47,7 @@ public:
 
     void Bind();
     unsigned int GetID() const { return m_vertexArrayID;}
-    const unsigned int AttributeCounter() const {return m_attribCounter;} 
+    unsigned int AttributeCounter() const {return m_attribCounter;} 
     
 private:
     unsigned int m_vertexArrayID;

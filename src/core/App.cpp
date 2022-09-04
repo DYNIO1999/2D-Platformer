@@ -23,6 +23,7 @@ namespace LightInDarkness{
         m_Window = std::make_shared<Window>(m_windowProps);
         s_eventDispatcher.Subscribe<WindowCloseEvent>(BIND_EVENT_FUNCTION(App::OnWindowClose));
         s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(App::OnWindowResize));
+
         //Logger
         Logger::Init();
         //Logger

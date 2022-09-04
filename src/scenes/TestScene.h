@@ -6,7 +6,6 @@
 #include "camera/OrtoCamera.h"
 #include "renderer/Renderer.h"
 
-
 namespace LightInDarkness
 {
     class TestScene : public Scene

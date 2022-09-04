@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include "core/App.h"
+#include "events/MouseEvents.h"
 
 namespace LightInDarkness{
 class OrtoCamera
@@ -23,10 +24,13 @@ public:
         m_cameraSpeed =_speed;
     }
 
+    void SetZoom(float _zoom);
+
     void OnEvent();
 private:
 
     void OnWindowResize(const Event &e);
+    void OnMouseScrolledEvent(const Event &e);
     void UpdateViewMatrix();
     float m_zoom{1.0f};
     float m_aspectRatio{1.0f};

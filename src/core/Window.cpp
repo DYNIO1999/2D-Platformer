@@ -36,9 +36,12 @@ namespace LightInDarkness{
             App::s_eventDispatcher.DispatchAll(WindowCloseEvent());
         });
 
-        SetVSync(true);
+        glfwSetScrollCallback(m_window, [](GLFWwindow *window, double xoffset, double yoffset) {
 
-        
+            (void)window;
+            App::s_eventDispatcher.DispatchAll(MouseScrolledEvent((float)xoffset,(float)yoffset));
+        });
+        SetVSync(true);
     }
     void Window::Shutdown()
     {

@@ -93,9 +93,9 @@ struct RendererData
 
     glm::vec4 rectVertexPositions[4];
 
-    const int maxRectsPerBatch{100};
-    const int maxVertices = {maxRectsPerBatch*4};
-    const int maxIndices = {maxRectsPerBatch*6};
+    const uint maxRectsPerBatch{20000};
+    const uint maxVertices = {maxRectsPerBatch*4};
+    const uint maxIndices = {maxRectsPerBatch*6};
 
 
     RectVertexData* rectVertexBufferBase =nullptr;
@@ -104,6 +104,8 @@ struct RendererData
     glm::mat4 transform;
     uint indicesCount;
     bool isBlending;
+
+    int drawCalls;
 };
 class Renderer
 {
