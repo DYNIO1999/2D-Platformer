@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-namespace LightInDarkness{
+namespace DEngine{
 class VertexArray
 {
 public:

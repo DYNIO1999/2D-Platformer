@@ -1,6 +1,6 @@
 #include "Window.h"
 #include "App.h"
-namespace LightInDarkness{
+namespace DEngine{
     void Window::Initialize()
     {
 

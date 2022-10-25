@@ -1,7 +1,7 @@
 #include "TestScene.h"
 #include "core/App.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     TestScene::TestScene(){
 

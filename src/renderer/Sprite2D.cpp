@@ -1,6 +1,6 @@
 #include "Sprite2D.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     std::shared_ptr<Sprite2D> Sprite2D::Create(std::shared_ptr<Texture> _texture, 
     const glm::vec2 &_spritePosition, const glm::vec2 &_spriteSize){

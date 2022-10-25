@@ -3,7 +3,7 @@
 #include "core/Logger.h"
 
 
-namespace LightInDarkness{
+namespace DEngine{
 
 
     OrtoCamera::OrtoCamera(float _aspectRatio, float _zoom):

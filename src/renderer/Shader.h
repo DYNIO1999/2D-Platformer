@@ -16,7 +16,7 @@
 
 #include "core/Assert.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     enum class ShaderType :GLenum{
         NoneShader  = GL_NONE,

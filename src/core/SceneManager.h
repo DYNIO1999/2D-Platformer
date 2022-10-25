@@ -4,7 +4,7 @@
 #include <memory>
 #include "Scene.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     class SceneManager
     {

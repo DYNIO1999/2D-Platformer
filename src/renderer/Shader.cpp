@@ -1,6 +1,6 @@
 #include "Shader.h"
 #include "core/Logger.h"
-namespace LightInDarkness{
+namespace DEngine{
 
     Shader::Shader(const std::string &_path)
     :m_shaderPath(_path), m_isComputeShader{false}

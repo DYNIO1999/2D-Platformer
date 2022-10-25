@@ -6,7 +6,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace LightInDarkness
+namespace DEngine
 {
     class Logger
     {
@@ -22,8 +22,8 @@ namespace LightInDarkness
 }
 
 // Core Logging Macros
-#define APP_TRACE(...) LightInDarkness::Logger::GetLogger()->trace(__VA_ARGS__)
-#define APP_INFO(...) LightInDarkness::Logger::GetLogger()->info(__VA_ARGS__)
-#define APP_WARN(...) LightInDarkness::Logger::GetLogger()->warn(__VA_ARGS__)
-#define APP_ERROR(...) LightInDarkness::Logger::GetLogger()->error(__VA_ARGS__)
+#define APP_TRACE(...) DEngine::Logger::GetLogger()->trace(__VA_ARGS__)
+#define APP_INFO(...) DEngine::Logger::GetLogger()->info(__VA_ARGS__)
+#define APP_WARN(...) DEngine::Logger::GetLogger()->warn(__VA_ARGS__)
+#define APP_ERROR(...) DEngine::Logger::GetLogger()->error(__VA_ARGS__)
 #endif

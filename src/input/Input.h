@@ -1,7 +1,7 @@
 #ifndef _SRC_INPUT_INPUT_H_
 #define _SRC_INPUT_INPUT_H_
 #include <utility>
-namespace LightInDarkness
+namespace DEngine
 {
     class Input
     {

@@ -2,7 +2,7 @@
 #define _SRC_EVENTS_WINDOW_EVENTS_H_
 
 #include "Event.h"
-namespace LightInDarkness
+namespace DEngine
 {
     class WindowCloseEvent :public Event
     {   

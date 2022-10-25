@@ -9,7 +9,7 @@
 #include "SceneManager.h"
 #include "Logger.h"
 
-namespace LightInDarkness{
+namespace DEngine{
 #define BIND_EVENT_FUNCTION(x) std::bind(&x, this, std::placeholders::_1)
 class App
 {

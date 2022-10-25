@@ -6,7 +6,7 @@
 
 
 
-namespace LightInDarkness
+namespace DEngine
 {
     class Texture
     {

@@ -11,7 +11,7 @@
 #include "events/WindowEvents.h"
 #include "events/MouseEvents.h"
 
-namespace LightInDarkness{
+namespace DEngine{
 
 struct WindowProperties
 {

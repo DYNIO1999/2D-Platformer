@@ -1,8 +1,7 @@
 #include "App.h"
 #include "input/Input.h"
-#include "scenes/TestScene.h"
-
-namespace LightInDarkness{
+#include "scenes/CheckersScene.h"
+namespace DEngine{
 
     EventDispatcher App::s_eventDispatcher;
     float App::s_deltaTime =0.0f;
@@ -32,7 +31,7 @@ namespace LightInDarkness{
         Renderer::Initialize();
         //Rednerer
         //Scenes
-        SceneManager::Get().PushScene(std::make_shared<TestScene>());
+        SceneManager::Get().PushScene(std::make_shared<CheckersScene>());
 
         //Scenes
     }

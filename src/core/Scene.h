@@ -1,7 +1,7 @@
 #ifndef _SRC_CORE_SCENE_H_
 #define _SRC_CORE_SCENE_H_
 
-namespace LightInDarkness{
+namespace DEngine{
 class Scene
 {    
 public:

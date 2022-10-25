@@ -1,6 +1,6 @@
 #include "VertexArray.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     VertexArray::VertexArray():m_attribCounter(0)
     {

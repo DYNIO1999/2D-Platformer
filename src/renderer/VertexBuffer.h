@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-namespace LightInDarkness{
+namespace DEngine{
 class VertexBuffer
 {
 public:

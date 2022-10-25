@@ -5,7 +5,7 @@
 #include <map>
 
 #include "Event.h"
-namespace LightInDarkness
+namespace DEngine
 {
     class EventDispatcher
     {

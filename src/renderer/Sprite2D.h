@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "Texture.h"
-namespace LightInDarkness{
+namespace DEngine{
 class Sprite2D
 {
 public:

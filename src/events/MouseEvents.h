@@ -3,7 +3,7 @@
 #include "Event.h"
 #include <iostream>
 
-namespace LightInDarkness
+namespace DEngine
 {
     class MouseScrolledEvent : public Event
     {

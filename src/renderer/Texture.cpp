@@ -3,7 +3,7 @@
 
 #include "core/Logger.h"
 #include "core/Assert.h"
-namespace LightInDarkness
+namespace DEngine
 {
 
     Texture::Texture(const std::string &_path)

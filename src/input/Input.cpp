@@ -1,7 +1,7 @@
 
 #include "Input.h"
 #include "core/App.h"
-namespace LightInDarkness
+namespace DEngine
 {
     bool Input::IsKeyPressed(int keycode)
     {

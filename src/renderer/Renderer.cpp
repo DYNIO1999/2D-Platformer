@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-namespace LightInDarkness
+namespace DEngine
 {
     RendererData Renderer::s_rendererData;
     void Renderer::Initialize(){

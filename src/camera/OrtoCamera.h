@@ -6,7 +6,7 @@
 #include "core/App.h"
 #include "events/MouseEvents.h"
 
-namespace LightInDarkness{
+namespace DEngine{
 class OrtoCamera
 {
 public:

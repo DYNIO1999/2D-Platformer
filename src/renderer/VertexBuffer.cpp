@@ -1,6 +1,6 @@
 #include "VertexBuffer.h"
 #include "../core/Logger.h"
-namespace LightInDarkness
+namespace DEngine
 {
     VertexBuffer::VertexBuffer(void *_data, unsigned int _sizeInBytes)
     {

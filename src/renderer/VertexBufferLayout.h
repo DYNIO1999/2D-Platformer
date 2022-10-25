@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 
 
-namespace LightInDarkness{
+namespace DEngine{
 
 
 struct VertexBufferElement
