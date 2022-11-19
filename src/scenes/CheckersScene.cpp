@@ -26,6 +26,55 @@ namespace DEngine{
         spriteSheetTexture = Texture::Create("../../resources/textures/sheet.png");
 
         window.SetVSync(true);
+
+        grid.start = find_index(0, 0);
+        grid.end = find_index(4, 4);
+
+        for (int i = 0; i < ROW_SIZE; i++)
+        {
+            for (int j = 0; j < COLUMN_SIZE; j++)
+            {
+                int index = find_index(i, j);
+                grid.nodes[index].previous = -100;
+                grid.nodes[index].i = i;
+                grid.nodes[index].j = j;
+
+                grid.nodes[index].Fcost = 0.0f;
+                grid.nodes[index].Hcost = 0.0f;
+                grid.nodes[index].Gcost = 0.0f;
+                if (i % 2 == 0 && j % 2 != 0)
+                {
+                    grid.nodes[index].passable = false;
+                }
+                else
+                {
+                    grid.nodes[index].passable = true;
+                }
+                grid.nodes[index].ID = index;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    grid.nodes[index].neighbours[i] = -1;
+                }
+
+                if (i < ROW_SIZE - 1)
+                {
+                    grid.nodes[index].neighbours[0] = find_index(i + 1, j);
+                }
+                if (i > 0)
+                {
+                    grid.nodes[index].neighbours[1] = find_index(i - 1, j);
+                }
+                if (j < COLUMN_SIZE - 1)
+                {
+                    grid.nodes[index].neighbours[2] = find_index(i, j + 1);
+                }
+                if (j > 0)
+                {
+                    grid.nodes[index].neighbours[3] = find_index(i, j - 1);
+                }
+            }
+        }
     }
     void CheckersScene::OnEvent()
     {
