@@ -2,6 +2,10 @@
 #include "../input/Input.h"
 
 namespace DEngine{
+
+    int find_index(int i, int j){
+        return (ROW_SIZE*i)+j; 
+    }
     CheckersScene::CheckersScene()
     {
     }
@@ -45,25 +49,30 @@ namespace DEngine{
 
         Renderer::Clear(glm::vec4(0.7, 0.5, 0.3, 1.0f));
         Renderer::BeginScene(m_camera);
-        
-        
-        for (size_t i = 0; i < 8; i++)
+
+        for (int i = 0; i < ROW_SIZE; i++)
         {
-            for (size_t j = 0; j < 8; j++)
+
+            for (int j = 0; j < COLUMN_SIZE; j++)
             {
-                if((i+j)%2){
-                Renderer::DrawRect({0.0f + i, 0.0f + j}, {1.0f, 1.0}, {1.0f,1.0f,1.0f, 1.0f});
-                }
-                else{
-                Renderer::DrawRect({0.0f + i, 0.0f + j}, {1.0f, 1.0}, {0.0f,0.0f,0.0f, 1.0f});
-                }
-                if ((ray_nds.x >= i && ray_nds.y < i+1) && (ray_nds.y >= j && ray_nds.y < j+1))
+                int index = find_index(i, j);
+
+                if (grid.nodes[index].passable)
+                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f});
+                else
+                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {0.0f, 0.0f, 0.0f, 1.0f});
+
+                if (grid.start == index)
                 {
-                    Renderer::DrawRect({0.0f + i, 0.0f + j}, {1.0f, 1.0}, {1.0f, 0.0f, 0.0f, 1.0f});
+                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f});
+                }
+                if (grid.end == index)
+                {
+                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 0.5f, 0.0f, 1.0f});
                 }
             }
         }
-        
+
         Renderer::EndScene();
     }
     void CheckersScene::OnShutdown()
