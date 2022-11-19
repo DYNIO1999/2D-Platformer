@@ -9,6 +9,19 @@ namespace DEngine
         auto state = glfwGetKey(window.GetGLFWWindow(), keycode);
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
+    int Input::s_oldMouseStatus = GLFW_RELEASE;
+
+    bool Input::IsMouseButtonPressedOnce(int button)
+    {
+        bool state = false;
+        auto &window = App::Get().GetWindow();
+        auto status = glfwGetMouseButton(window.GetGLFWWindow(), button);
+        if (status == GLFW_RELEASE && s_oldMouseStatus == GLFW_PRESS){
+            state = true;
+        }
+        s_oldMouseStatus= status;
+        return state;
+    }
 
     bool Input::IsMouseButtonPressed(int button)
     {

@@ -13,7 +13,7 @@ namespace DEngine{
         m_zoom = _zoom;
         auto &window = App::Get();
         window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
-        window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
+        //window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
         SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
 
@@ -23,7 +23,7 @@ namespace DEngine{
         m_zoom = _zoom;
         auto &window = App::Get();
         window.s_eventDispatcher.Subscribe<WindowResizeEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnWindowResize));
-        window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
+        //window.s_eventDispatcher.Subscribe<MouseScrolledEvent>(BIND_EVENT_FUNCTION(OrtoCamera::OnMouseScrolledEvent));
         SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
     }
     OrtoCamera::~OrtoCamera(){

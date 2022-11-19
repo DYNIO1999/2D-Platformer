@@ -3,7 +3,9 @@
 
 namespace DEngine{
     int calculateDistance(int ax, int ay, int bx, int by){
-        return ((bx-ax)*(bx-ax)) + ((by-ay)*(by-ay));
+
+
+        return std::abs(((bx-ax)*(bx-ax))) + std::abs(((by-ay)*(by-ay)));
     }
     int find_index(int i, int j){
         return (ROW_SIZE*i)+j; 
@@ -20,8 +22,10 @@ namespace DEngine{
 
         auto &window = App::Get().GetWindow();
         auto [winWidth, winHeight] = window.GetWindowSize();
-        m_camera.SetCamera((static_cast<float>(winWidth) / static_cast<float>(winHeight)), 10.0f);
+        m_camera.SetCamera((static_cast<float>(winWidth) / static_cast<float>(winHeight)), 7.0f);
         m_camera.SetCameraSpeed(20.0f);
+        m_camera.SetPosition(glm::vec3(6.5f*m_camera.AspectRatio(),3.6f*m_camera.AspectRatio(),0.0f));
+        
 
         testShader = Shader::Create("../../resources/shaders/ColorShader.glsl");
         testTexture = Texture::Create("../../resources/textures/woodwall.png");
@@ -56,7 +60,7 @@ namespace DEngine{
                 }
                
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     grid.nodes[index].neighbours[i] = -1;
                 }
@@ -77,6 +81,26 @@ namespace DEngine{
                 {
                     grid.nodes[index].neighbours[3] = find_index(i, j - 1);
                 }
+
+                if ((i < ROW_SIZE - 1) && (j < COLUMN_SIZE - 1))
+                {
+                    grid.nodes[index].neighbours[4] = find_index(i + 1, j+1);
+                }
+
+                if ((i < ROW_SIZE - 1) && (j>0))
+                {
+                    grid.nodes[index].neighbours[5] = find_index(i + 1, j - 1);
+                }
+
+                if ((i>0) && (j > 0))
+                {
+                    grid.nodes[index].neighbours[6] = find_index(i - 1, j - 1);
+                }
+
+                if ((i>0) && (j < COLUMN_SIZE - 1))
+                {
+                    grid.nodes[index].neighbours[7] = find_index(i - 1, j + 1);
+                }
             }
         }
         //Pathfinding
@@ -90,22 +114,41 @@ namespace DEngine{
     {
         auto &window = App::Get().GetWindow();
         auto [width, height] = window.GetWindowSize();
-        m_camera.OnUpdate(dt);
-        if (Input::IsKeyPressedOnce(GLFW_KEY_P))
+        //m_camera.OnUpdate(dt);
+        auto [x,y] = Input::GetMousePosition();
+        int sizeX = ((width-75)/2)/ROW_SIZE;
+        int sizeY = ((height+500)/2)/COLUMN_SIZE;
+        
+            
+        if(Input::IsMouseButtonPressedOnce(GLFW_MOUSE_BUTTON_RIGHT)){
+            int i =(int)x / sizeX;
+            int j = std::abs((int)(y - height) / sizeY);
+            grid.end = find_index(i, j);
+           
+            changed = !changed;
+            done = false;
+        }
+
+        if(Input::IsKeyPressedOnce(GLFW_KEY_SPACE)){
+            int i = (int)x / sizeX;
+            int j = std::abs((int)(y - height) / sizeY);
+        
+            grid.nodes[find_index(i,j)].passable =!grid.nodes[find_index(i,j)].passable;
+            path.clear();
+        }
+
+        if (Input::IsMouseButtonPressedOnce(GLFW_MOUSE_BUTTON_LEFT))
         {
-            grid.start = find_index(0, 0);
-            grid.end = find_index(4, 2);
-            changed= !changed;
-            done = false;
+            int i = (int)x / sizeX;
+            int j = std::abs((int)(y - height) / sizeY);
+            grid.start = find_index(i, j);
+            path.clear();
         }
-        if(Input::IsKeyPressedOnce(GLFW_KEY_Q)){
-            grid.start = find_index(0, 0);
-            grid.end = find_index(1, 4);
-            changed= !changed;
-            done = false;
-        }
-        if(changed && !done)
-            CalculatePathfinding();    
+
+        if(changed && !done){
+            APP_ERROR("WORKING");
+            CalculatePathfinding();
+        }    
         Renderer::Clear(glm::vec4(0.7, 0.5, 0.3, 1.0f));
         Renderer::BeginScene(m_camera);
 
@@ -117,23 +160,22 @@ namespace DEngine{
                 int index = find_index(i, j);
 
                 if (grid.nodes[index].passable)
-                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f});
+                    Renderer::DrawRect({i * 1.1f, j * 1.1f}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f});
                 else
-                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {0.0f, 0.0f, 0.0f, 1.0f});
+                    Renderer::DrawRect({i * 1.1f, j * 1.1f}, {1.0f, 1.0f}, {0.0f, 0.0f, 0.0f, 1.0f});
 
                 if (grid.start == index)
                 {
-                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f});
+                    Renderer::DrawRect({i * 1.1f, j * 1.1f}, {1.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f});
                 }
                 if (grid.end == index)
                 {
-                    Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {1.0f, 0.5f, 0.0f, 1.0f});
+                    Renderer::DrawRect({i * 1.1f, j * 1.1f}, {1.0f, 1.0f}, {1.0f, 0.5f, 0.0f, 1.0f});
                 }
-
                 for (auto &it : path)
                 {
                     if(index ==it){
-                        Renderer::DrawRect({i * 1.5f, j * 1.5f}, {1.0f, 1.0f}, {0.3f, 0.5f, 0.2f, 1.0f});   
+                        Renderer::DrawRect({i * 1.1f, j * 1.1f}, {1.0f, 1.0f}, {0.3f, 0.5f, 0.2f, 1.0f});   
                     }
                 }
                 
@@ -181,7 +223,7 @@ namespace DEngine{
                 break;
             }
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
             {
                 int neighbour = grid.nodes[currentNode].neighbours[i];
 

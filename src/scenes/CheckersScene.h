@@ -10,8 +10,8 @@
 namespace DEngine{
 
 
-constexpr int ROW_SIZE =5;
-constexpr int COLUMN_SIZE = 5;
+constexpr int ROW_SIZE =10;
+constexpr int COLUMN_SIZE = 10;
 constexpr int GRID_SIZE = ROW_SIZE * COLUMN_SIZE;
 
 struct Node
@@ -24,7 +24,7 @@ struct Node
     float Gcost; // Distance to Start Node
     int passable;
     int ID;
-    int neighbours[4];
+    int neighbours[8];
 };
 
 struct NodeData

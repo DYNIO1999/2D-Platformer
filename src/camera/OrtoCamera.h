@@ -27,6 +27,14 @@ public:
     void SetZoom(float _zoom);
 
     void OnEvent();
+    void SetPosition(glm::vec3 pos){
+        m_position= pos;
+        UpdateViewMatrix();
+    }
+
+    float AspectRatio(){
+        return m_aspectRatio;
+    }
 private:
 
     void OnWindowResize(const Event &e);
