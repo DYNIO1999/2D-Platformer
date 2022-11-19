@@ -36,4 +36,18 @@ namespace DEngine
         glfwGetCursorPos(window.GetGLFWWindow(), &x, &y);
         return {(float)x, (float)y};
     }
+    
+    int Input::s_oldKeyStatus = GLFW_RELEASE;
+    bool Input::IsKeyPressedOnce(int key)
+    {
+        bool state = false;
+        auto &window = App::Get().GetWindow();
+        int status = glfwGetKey(window.GetGLFWWindow(), key);
+        if (status == GLFW_RELEASE && s_oldKeyStatus == GLFW_PRESS)
+        {
+            state = true;
+        }
+        s_oldKeyStatus = status;
+        return state;
+    }
 }

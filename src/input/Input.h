@@ -11,6 +11,8 @@ namespace DEngine
         static float GetMouseX();
         static float GetMouseY();
         static std::pair<float, float> GetMousePosition();
+        static int s_oldKeyStatus;
+        static bool IsKeyPressedOnce(int key);
     };    
 } 
 #endif
