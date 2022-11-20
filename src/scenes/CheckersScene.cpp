@@ -1,12 +1,24 @@
 #include "CheckersScene.h"
 #include "../input/Input.h"
-
+#include <cmath>
 namespace DEngine{
     int calculateDistance(int ax, int ay, int bx, int by){
-
-
-        return std::abs(((bx-ax)*(bx-ax))) + std::abs(((by-ay)*(by-ay)));
+        int dx = std::abs(ax - bx);
+        int dy = std::abs(ay - by);
+        if(dx>dy)
+            return 14*dy+10*(dx-dy);
+        return 14*dx+10*(dy-dx);
     }
+
+    int calculateGCost(int ax, int ay, int bx, int by)
+    {
+        int dx = std::abs(ax - bx);
+        int dy = std::abs(ay - by);
+        if (dx > dy)
+            return 14 * dy + 10 * (dx - dy);
+        return 14 * dx + 10 * (dy - dx);
+    }
+
     int find_index(int i, int j){
         return (ROW_SIZE*i)+j; 
     }
@@ -237,7 +249,7 @@ namespace DEngine{
                 if ((neighbour != -1) && (!foundInProcessed) && grid.nodes[neighbour].passable)
                 {
 
-                    int costToNeighbour = grid.nodes[currentNode].Gcost + 1;
+                    int costToNeighbour = grid.nodes[currentNode].Gcost + calculateGCost(grid.nodes[currentNode].i, grid.nodes[currentNode].j, grid.nodes[neighbour].i, grid.nodes[neighbour].j);
 
                     bool found = false;
                     auto check = std::find(toSearchNodes.begin(), toSearchNodes.end(), neighbour);
@@ -264,6 +276,17 @@ namespace DEngine{
         //
 
         std::reverse(path.begin(), path.end());
+        for (int i = 0; i < ROW_SIZE; i++)
+        {
+            for (int j = 0; j < COLUMN_SIZE; j++)
+            {
+                grid.nodes[find_index(i,j)].Fcost=0.0f;
+                grid.nodes[find_index(i,j)].Gcost=0.0f;
+                grid.nodes[find_index(i,j)].Hcost=0.0f;
+                grid.nodes[find_index(i,j)].previous=-1;
+            }
+        }
+
         done =true;
     }
 }

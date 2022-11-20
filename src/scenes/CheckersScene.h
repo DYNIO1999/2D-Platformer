@@ -13,7 +13,7 @@ namespace DEngine{
 constexpr int ROW_SIZE =10;
 constexpr int COLUMN_SIZE = 10;
 constexpr int GRID_SIZE = ROW_SIZE * COLUMN_SIZE;
-
+constexpr float DIAGONAL_COST =1.4;
 struct Node
 {
     int i;
@@ -27,7 +27,7 @@ struct Node
     int neighbours[8];
 };
 
-struct NodeData
+struct Grid
 {
     int start;
     int end;
@@ -58,7 +58,7 @@ public:
 
     OrtoCamera m_camera;
     
-    NodeData grid;
+    Grid grid;
     std::vector<int> path;
 
     int pathSize{1};
